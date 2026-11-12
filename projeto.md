@@ -1,0 +1,757 @@
+# PROJETO DE SOFTWARE
+
+## *Stakeholders*
+|NOME|CARGO|E-MAIL|
+|:---|:---|:---|
+|Gilberto Silva|Professor|gilberto.silva@ifro.edu.br|
+|Taline França|Cliente|[E-MAIL]|
+
+
+# Sumário
+
+* [RESUMO DO PROJETO](#resumo-do-projeto)
+* [INTRODUÇÃO](#introdução)
+  * [PROPÓSITO DESTE DOCUMENTO](#propósito-deste-documento)
+  * [CONCEPÇÃO DO SISTEMA](#concepção-do-sistema)
+* [DESCRIÇÃO GERAL](#descrição-geral)
+  * [USUÁRIOS DO SISTEMA](#usuários-do-sistema)
+  * [ABRANGÊNCIA E SISTEMAS SIMILARES](#abrangência-e-sistemas-similares)
+  * [SUPOSIÇÕES E DEPENDÊNCIAS](#suposições-e-dependências)
+* [ESTUDO DE VIABILIDADE](#estudo-de-viabilidade)
+* [PM CANVAS](#pm-canvas)
+* [METODOLOGIA ADOTADA NO DESENVOLVIMENTO](#metodologia-adotada-no-desenvolvimento)
+  * [MÉTRICAS](#métricas)
+  * [DIFICULDADES E APRENDIZADOS](#dificuldades-e-aprendizados)
+* [REQUISITOS DO SOFTWARE](#requisitos-do-software)
+  * [REQUISITOS FUNCIONAIS](#requisitos-funcionais)
+  * [REQUISITOS NÃO FUNCIONAIS](#requisitos-não-funcionais)
+  * [USER STORIES](#user-stories)
+* [PROTOTIPAGEM](#prototipagem)
+* [MODELO LÓGICO DO BANCO DE DADOS](#modelo-lógico-do-banco-de-dados)
+  * [DICIONÁRIO DE DADOS](#dicionário-de-dados)
+* [DIAGRAMA DE ATIVIDADES](#diagrama-de-atividades)
+* [DIAGRAMA DE SEQUÊNCIA](#diagrama-de-sequência)
+* [DIAGRAMA DE CLASSES](#diagrama-de-classes)
+* [DIAGRAMA DE CASOS DE USO](#diagrama-de-casos-de-uso)
+  * [ESPECIFICAÇÃO DOS CASOS DE USO](#especificação-dos-casos-de-uso)
+* [REFERÊNCIAS](#referências)
+
+
+# RESUMO DO PROJETO
+
+|ITEM|DETALHES|
+|:---|:---|
+|NOME| HERA — Hospedagem, Estadias, Reservas e Acomodações |
+|MEMBROS DO PROJETO| Ana Clara Funari, Ana Claudia Santos Moura, Leticia Almeida e Thalita Cristina Chave Peronico |
+|CLIENTE| Taline França |
+|PRINCIPAL OBJETIVO| Desenvolver uma aplicação web que centralize a busca, o cadastro e o gerenciamento de acomodações e reservas de hospedagem, conectando clientes que procuram hospedagem a proprietários que oferecem acomodações. |
+|BENEFÍCIOS ESPERADOS| Substituir o controle manual de acomodações e reservas por um sistema único, reduzindo erros (como reservas em períodos já ocupados), facilitando a organização do proprietário e tornando a busca e a reserva mais simples para o cliente. |
+|INÍCIO E TÉRMINO PREVISTOS| 21/07/2026 - 08/12/2026 |
+|ENTREGAS (MILESTONES)| Milestone 1: 15/09/2026 · Milestone 2: 20/10/2026 · Milestone 3 (Final): 08/12/2026 |
+
+
+# INTRODUÇÃO
+
+Hoje, as informações de hospedagem e reservas costumam ser gerenciadas de forma manual (anotações, planilhas, conversas em aplicativos de mensagem), o que dificulta a organização e aumenta a possibilidade de erros, como reservas sobrepostas ou dados desatualizados sobre preços e disponibilidade.
+
+O HERA é uma aplicação web que centraliza esse processo. De um lado, o **cliente** pesquisa acomodações, consulta os detalhes e solicita reservas. Do outro, o **proprietário** cadastra e administra suas acomodações, informa a disponibilidade e acompanha as reservas recebidas.
+
+
+## PROPÓSITO DESTE DOCUMENTO
+
+Este documento descreve o projeto de software do HERA: o problema que ele resolve, para quem foi criado, os requisitos levantados, o protótipo, o modelo de dados e os diagramas UML que orientam o desenvolvimento.
+
+## CONCEPÇÃO DO SISTEMA
+
+Métodos utilizados para a obtenção dos requisitos do sistema:
+  * Entrevista com a cliente (Taline França).
+  * Análise de plataformas de hospedagem existentes.
+  * Validação dos diagramas e do protótipo nas entregas de milestone.
+
+
+# DESCRIÇÃO GERAL
+
+
+## Usuários do sistema
+
+| USUÁRIO | DESCRIÇÃO |
+|:---|:---|
+| **Cliente** | Pessoa que procura hospedagem. Pesquisa acomodações, consulta detalhes, solicita e cancela reservas, acompanha suas reservas e avalia a hospedagem após concluí-la. |
+| **Proprietário** | Pessoa física ou jurídica que oferece acomodações. Cadastra e administra acomodações, informa a disponibilidade e os preços por período, acompanha as reservas recebidas e atualiza a situação delas. |
+
+
+## Abrangência e sistemas similares
+
+O HERA abrange o ciclo da hospedagem: cadastro da acomodação, busca, reserva, acompanhamento e avaliação.
+
+### Sistemas similares:
+* Airbnb
+* Booking.com
+
+
+## Suposições e dependências
+
+* Os usuários acessarão a plataforma por qualquer dispositivo com navegador e acesso à internet.
+* O login com conta Google depende da disponibilidade do serviço de autenticação do Google.
+* O envio do código de recuperação de senha depende de um serviço de e-mail.
+
+
+# ESTUDO DE VIABILIDADE
+
+O sistema é viável porque resolve um problema concreto da cliente (o controle manual de acomodações e reservas) com tecnologias web amplamente conhecidas pela equipe. O escopo foi dividido em três módulos — Gestão de Acomodações, Reserva de Hospedagem e Acompanhamento e Avaliação —, o que permite desenvolver e validar cada parte de forma incremental.
+
+
+# PM CANVAS
+
+O Project Model Canvas foi elaborado no Milestone 1 para organizar a concepção do projeto em uma única página. Ele reúne a justificativa, o objetivo, os benefícios, o produto, os requisitos, os stakeholders, a equipe, as premissas, os riscos, as restrições, as entregas, a linha do tempo e os custos.
+
+![PM Canvas do projeto HERA](img/pm_canvas.png)
+
+## Justificativa
+
+* Necessidade de uma aplicação de hospedagem mais amigável, intuitiva e acessível aos usuários.
+* Existência de diversos locatários que gerenciam seus processos de forma manual, o que dificulta a organização e aumenta a possibilidade de erros.
+
+## Objetivo SMART
+
+| | OBJETIVO |
+|:---:|:---|
+| **S** (específico) | Criar um protótipo de aplicação web de hospedagem com pesquisa, filtros, visualização, cadastro e gerenciamento de acomodações. |
+| **M** (mensurável) | Implementar e validar as principais funcionalidades propostas para o sistema. |
+| **A** (atingível) | Desenvolver o sistema com os recursos, conhecimentos e tecnologias disponíveis para a equipe. |
+| **R** (relevante) | Facilitar a busca por hospedagens e melhorar a organização e o gerenciamento das informações. |
+| **T** (temporal) | Concluir o desenvolvimento dentro do prazo do cronograma do projeto (08/12/2026). |
+
+## Benefícios
+
+* Centralização das informações das hospedagens, facilitando o acesso dos usuários.
+* Busca por hospedagens mais rápida e prática, com melhor experiência para o usuário.
+* Melhor organização de reservas, taxas e histórico de locatários.
+* Contribuição para o desenvolvimento e o fortalecimento do turismo local.
+
+## Demais blocos do Canvas
+
+| BLOCO | RESUMO |
+|:---|:---|
+| Produto | Protótipo de aplicação web que centraliza a busca, a visualização e o gerenciamento de acomodações, reservas e informações relacionadas. |
+| Stakeholders e fatores externos | Hóspedes (clientes), proprietários de hospedagens, administradores, a cliente Taline França, o professor orientador, a equipe de desenvolvimento e aplicativos concorrentes. Como fatores externos, a LGPD e os serviços externos de login Google e envio de e-mail. |
+| Equipe | Analista de requisitos, designer UX/UI, desenvolvedor e administrador de banco de dados, e documentador. |
+| Premissas | Equipe disponível durante o projeto, usuários com acesso à internet, recursos tecnológicos disponíveis e informações das hospedagens fornecidas corretamente. |
+| Riscos | Requisitos mal compreendidos, mudanças nos requisitos, atraso no desenvolvimento, baixa participação da cliente e falta de tempo para revisão das entregas. |
+| Restrições | Equipe pequena, orçamento e recursos tecnológicos limitados, dependência de internet, pouco tempo para testes e cumprimento dos requisitos definidos. |
+| Entregas | Milestone 1 (15/09): PM Canvas, requisitos e métricas · Milestone 2 (20/10): wireframes, protótipos e site map · Milestone 3 (08/12): modelagem do banco de dados. |
+| Custos | Custo total estimado de R$ 28.950: mão de obra (4 pessoas × 84 h × R$ 30/h = R$ 10.080), equipamentos (notebooks, mouses e monitores = R$ 17.520) e infraestrutura (internet e energia = R$ 1.350). |
+
+## Alterações em relação à primeira versão
+
+Na revisão feita no Milestone 3, o Canvas recebeu as seguintes correções:
+
+* Remoção do item de custo "Equipamentos – Mouse", que estava duplicado.
+* Correção do custo total estimado, de R$ 30.050 para R$ 28.950, conforme a soma dos itens.
+* Correção de erros de digitação nos blocos Produto, Objetivo SMART e Premissas.
+* Revisão dos stakeholders: separação entre a cliente (Taline França) e o professor orientador, troca de "Hóspedes/Usuários" por "Hóspedes (clientes)" e inclusão da LGPD e dos serviços externos (login Google e e-mail) como fatores externos.
+
+[ [INÍCIO](#projeto-de-software) ]
+
+# METODOLOGIA ADOTADA NO DESENVOLVIMENTO
+
+A equipe utiliza o método **Kanban**, acompanhando o progresso por meio das métricas de Throughput, Lead Time e Cycle Time. O protótipo das telas foi desenvolvido no **Figma**.
+
+## Planejamento por marcos
+
+O trabalho é registrado como issues no GitLab, organizadas em três marcos:
+
+| MARCO | PERÍODO | ENTREGAS | ISSUES | SITUAÇÃO |
+|:---|:---|:---|:---:|:---|
+| Milestone 1 | 21/07 a 15/09/2026 | PM Canvas, requisitos funcionais e não funcionais, histórias de usuário | 40 | Concluído |
+| Milestone 2 | 16/09 a 20/10/2026 | Modelagem do banco de dados, diagramas UML e protótipos | 8 | Concluído |
+| Milestone 3 (Final) | 21/10 a 08/12/2026 | Ajustes do banco de dados e documentação do projeto | 2 | Em andamento |
+
+## Métricas
+
+**Issues no GitLab** (dados de 10/11/2026): 50 issues, 48 fechadas e 2 abertas (96% concluídas).
+
+| RESPONSÁVEL | ISSUES |
+|:---|:---:|
+| Thalita Peronico | 20 |
+| Leticia Almeida | 13 |
+| Ana Moura | 11 |
+| Ana Funari | 6 |
+
+**Fluxo Kanban no Milestone 2** (8 itens concluídos, apresentado em 20/10/2026):
+
+| MÉTRICA | VALOR |
+|:---|:---|
+| Lead Time (mediana, To Do → Done) | 181,8 h (faixa: 34,8 h a 498,4 h) |
+| Cycle Time (mediana, Doing → Done) | 181,8 h (faixa: 34,8 h a 498,1 h) |
+| Cycle Time P50 | 7,6 dias |
+| Cycle Time P85 | 20,7 dias |
+
+Distribuição do Cycle Time: 3 itens em até 2 dias, 2 itens entre 5 e 10 dias e 3 itens acima de 20 dias.
+
+## Dificuldades e aprendizados
+
+| DIFICULDADES | APRENDIZADOS |
+|:---|:---|
+| Distribuição de tarefas | Alinhar a disponibilidade logo no início |
+| Disponibilidade limitada dos membros | Fazer acompanhamentos curtos e frequentes |
+| Prazo curto | Dividir as tarefas de acordo com a disponibilidade |
+| Volume grande de documentação | Planejar o tempo por tipo de entrega |
+
+
+# Requisitos do Software
+
+A especificação dos requisitos deste documento segue as recomendações da norma IEEE Std-830-1998, levando em conta as recomendações do documento de [características dos requisitos](caracteristicas_requisitos.md).
+
+## Requisitos Funcionais
+
+A tabela a seguir contém a relação completa dos Requisitos Funcionais elicitados:
+
+| IDENTIFICADOR | NOME | DESCRIÇÃO | PRIORIDADE | ORIGEM |
+| :--- | :--- | :--- | :--- | :--- |
+| **RF-001** | Usuários | O sistema deve permitir o cadastro de usuário com e-mail, senha e perfil (Cliente ou Proprietário), e a manutenção dos dados pessoais: nome completo, CPF (ou CNPJ, para proprietário), data de nascimento (cliente), celular e endereço. | Essencial | Entrevista |
+| **RF-002** | Autenticação | O sistema deve permitir o acesso com e-mail e senha ou com conta Google, e a recuperação de senha por um código de 5 caracteres enviado ao e-mail, com prazo de validade e uso único. | Essencial | Entrevista |
+| **RF-003** | Acomodações | O sistema deve permitir que o proprietário cadastre e atualize acomodações (dados do imóvel, endereço, regras, horários, valores, fotos e comodidades) e informe a disponibilidade, bloqueando períodos e definindo preços por período. | Essencial | UC-01, UC-02 |
+| **RF-004** | Consulta de acomodações | O sistema deve permitir que o cliente pesquise acomodações por cidade, período e número de hóspedes e consulte os detalhes de cada uma (fotos, descrição, comodidades, regras, preços e avaliações). | Essencial | UC-03 |
+| **RF-005** | Solicitação de reserva | O sistema deve permitir que o cliente solicite uma reserva informando check-in, check-out e número de hóspedes, verificando a disponibilidade do período e calculando o valor total, com aplicação de cupom de desconto válido. | Essencial | UC-04, UC-05 |
+| **RF-006** | Ciclo da reserva | O sistema deve controlar a situação da reserva e permitir apenas as transições válidas entre situações. | Essencial | UC-08 |
+| **RF-007** | Reservas do proprietário | O sistema deve permitir que o proprietário consulte as reservas recebidas em suas acomodações e atualize a situação de cada uma. | Essencial | UC-07, UC-08 |
+| **RF-008** | Reservas do cliente | O sistema deve permitir que o cliente consulte suas reservas, com acomodação, período, valor e situação. | Essencial | UC-07 |
+| **RF-009** | Cancelamento | O sistema deve permitir que o cliente cancele uma reserva ainda não concluída, liberando o período na acomodação. | Essencial | UC-06 |
+| **RF-010** | Avaliações | O sistema deve permitir que o cliente avalie uma hospedagem concluída, uma única vez por reserva, com notas de 1 a 5 (geral, limpeza, conforto, atendimento e custo-benefício) e comentário opcional. | Essencial | UC-09 |
+
+
+## Requisitos Não Funcionais
+
+A tabela a seguir contém a relação dos Requisitos Não-Funcionais elicitados:
+
+| IDENTIFICADOR | NOME | DESCRIÇÃO |
+|:---|:---|:---|
+| RNF-001 | Proteção de dados | As senhas devem ser armazenadas com hash, e o tratamento de dados pessoais (CPF, CNPJ, e-mail, celular) deve seguir a LGPD (Lei nº 13.709/2018). |
+| RNF-002 | Controle de acesso por perfil | Cada funcionalidade só pode ser executada pelo perfil autorizado: o cliente acessa apenas as próprias reservas, e o proprietário, apenas as próprias acomodações e as reservas recebidas nelas. |
+| RNF-003 | Integridade das reservas | O sistema não deve permitir duas reservas ativas para a mesma acomodação em períodos sobrepostos, nem reservas em períodos bloqueados. |
+| RNF-004 | Rastreabilidade | O sistema deve registrar as alterações relevantes (como mudanças de situação da reserva), com data, hora e usuário responsável. |
+
+
+## User Stories
+
+As 25 histórias de usuário (US-001 a US-025) estão registradas como issues no GitLab, no Milestone 1, agrupadas assim:
+
+| HISTÓRIAS | TEMA | RESPONSÁVEL | REQUISITOS |
+|:---|:---|:---|:---|
+| US-001 a US-005, US-011 a US-013, US-024 | Cadastro, login, perfil e busca de acomodações | Leticia Almeida | RF-001, RF-002, RF-004 |
+| US-006 a US-010, US-014, US-015, US-018 | Gestão de acomodações e reservas do proprietário | Thalita Peronico | RF-003, RF-005, RF-007 |
+| US-016, US-017 | Acompanhamento e atualização da situação da reserva | Ana Clara Funari | RF-006 |
+| US-019 a US-023, US-025 | Minhas reservas, cancelamento, avaliações e registro de alterações | Ana Claudia Moura | RF-008, RF-009, RF-010, RNF-004 |
+
+[INSERIR O TEXTO DE CADA HISTÓRIA, NO FORMATO "Como [perfil], quero [ação], para [benefício]".]
+
+
+# Prototipagem
+
+O protótipo das telas foi desenvolvido no Figma: [HERA — Protótipo](https://www.figma.com/design/Ap64svSqPkcBFoPZL0mJrf/Fabrica-I?node-id=0-1&p=f&t=wRyGjbrLVNiPLK7Z-0)
+
+## Fluxo Completo Protótipo
+
+[INSERIR IMAGENS DAS TELAS EM `img/`]
+
+
+[ [INÍCIO](#projeto-de-software) ]
+
+# Modelo Lógico do Banco de Dados
+
+O banco de dados (MySQL) é composto por 20 tabelas, organizadas em quatro grupos:
+
+* **Usuários:** `usuarios`, `cliente`, `proprietario`, `recuperacao_senha`, `preferencia` e `cliente_preferencia`.
+* **Endereço:** `endereco`, `endereco_cep` e `endereco_cidade`.
+* **Acomodações:** `cadastro_hospedagem`, `foto_hospedagem`, `comodidades`, `hospedagem_comodidades` e `preco_periodo`.
+* **Reservas:** `reserva`, `cupom`, `pagamento`, `reserva_pagamento`, `avaliacao_hospedagem` e `avaliacao_cliente`.
+
+![Modelo lógico do banco de dados](img/modelo_logico_bd.png)
+
+Script de criação do banco: [GESTAO_HOSPEDAGEM.sql](arquivos/GESTAO_HOSPEDAGEM.sql)
+
+Modelo editável: [arquivos/](arquivos/)
+
+## Dicionário de Dados
+
+### USUARIOS
+
+Contas de acesso à plataforma. Cada usuário pode ter um perfil de cliente e/ou de proprietário.
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `USUA_ID_USUARIO` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador do usuário |
+| `USUA_DS_EMAIL` | VARCHAR(150) | UNIQUE | NOT NULL | E-mail de acesso do usuário |
+| `USUA_DS_SENHA` | VARCHAR(255) | Simples | NULL | Senha criptografada (hash). Fica vazia quando o acesso é pela conta Google |
+| `USUA_ID_GOOGLE` | VARCHAR(255) | UNIQUE | NULL | Identificador da conta Google vinculada |
+| `USUA_DS_TIPO` | VARCHAR(12) | Simples | NOT NULL | Tipo de usuário (cliente ou proprietário) |
+
+### RECUPERACAO_SENHA
+
+Solicitações de recuperação de senha. Cada solicitação gera um código próprio, com prazo de validade e uso único.
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `RESN_ID_RECUPERACAO` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador da solicitação de recuperação |
+| `FK_USUA_ID_USUARIO` | INT | FK | NOT NULL | Usuário que solicitou a recuperação (USUARIOS) |
+| `RESN_DS_CODIGO` | VARCHAR(5) | Simples | NOT NULL | Código de verificação enviado ao e-mail |
+| `RESN_DT_EXPIRAR` | DATETIME | Simples | NOT NULL | Data e hora em que o código expira |
+| `RESN_LG_USADO` | TINYINT(1) | Simples | NOT NULL, DEFAULT 0 | Indica se o código já foi usado (0 = não, 1 = sim) |
+
+### CLIENTE
+
+Dados pessoais do perfil de cliente (hóspede).
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `CLIE_ID_CLIENTE` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador do cliente |
+| `FK_USUA_ID_USUARIO` | INT | FK / UNIQUE | NOT NULL | Conta de usuário do cliente (USUARIOS). Um usuário tem no máximo um perfil de cliente |
+| `CLIE_NM_COMPLETO` | VARCHAR(150) | Simples | NOT NULL | Nome completo do cliente |
+| `CLIE_NR_CPF` | VARCHAR(14) | UNIQUE | NOT NULL | CPF do cliente |
+| `CLIE_DT_NASCIMENTO` | DATE | Simples | NOT NULL | Data de nascimento do cliente |
+| `CLIE_DS_CELULAR` | VARCHAR(12) | Simples | NOT NULL | Número de celular do cliente |
+| `FK_ENDE_ID_ENDERECO` | INT | FK | NOT NULL | Endereço do cliente (ENDERECO) |
+
+### PROPRIETARIO
+
+Dados do perfil de proprietário, pessoa física (CPF) ou jurídica (CNPJ).
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `PROP_ID_PROPRIETARIO` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador do proprietário |
+| `FK_USUA_ID_USUARIO` | INT | FK / UNIQUE | NOT NULL | Conta de usuário do proprietário (USUARIOS). Um usuário tem no máximo um perfil de proprietário |
+| `PROP_NR_CPF` | VARCHAR(14) | UNIQUE | NULL | CPF do proprietário pessoa física. Deve ser informado o CPF ou o CNPJ |
+| `PROP_NR_CNPJ` | VARCHAR(18) | UNIQUE | NULL | CNPJ do proprietário pessoa jurídica. Deve ser informado o CPF ou o CNPJ |
+| `PROP_NM_COMPLETO` | VARCHAR(255) | Simples | NOT NULL | Nome completo ou razão social do proprietário |
+| `PROP_DS_CELULAR` | VARCHAR(12) | Simples | NOT NULL | Número de celular do proprietário |
+| `FK_ENDE_ID_ENDERECO` | INT | FK | NOT NULL | Endereço do proprietário (ENDERECO) |
+
+### PREFERENCIA
+
+Lista de preferências de hospedagem que o cliente pode escolher (ex.: praia, pet friendly).
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `PREF_ID_PREFERENCIA` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador da preferência |
+| `PREF_NM_PREFERENCIA` | VARCHAR(50) | Simples | NOT NULL | Nome da preferência |
+
+### CLIENTE_PREFERENCIA
+
+Associação entre clientes e preferências (relacionamento N:N).
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `FK_CLIE_ID_CLIENTE` | INT | PK / FK | NOT NULL | Cliente (CLIENTE) |
+| `FK_PREF_ID_PREFERENCIA` | INT | PK / FK | NOT NULL | Preferência escolhida pelo cliente (PREFERENCIA) |
+
+### ENDERECO_CIDADE
+
+Cidades e seus estados.
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `ENCI_ID_CIDADE` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador da cidade |
+| `ENCI_NM_CIDADE` | VARCHAR(100) | Simples | NOT NULL | Nome da cidade |
+| `ENCI_SG_ESTADO` | CHAR(2) | Simples | NOT NULL | Sigla do estado (UF) |
+
+### ENDERECO_CEP
+
+CEPs cadastrados. Cada CEP pertence a uma única cidade.
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `ENCE_ID_CEP` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador do CEP |
+| `ENCE_NR_CEP` | VARCHAR(8) | UNIQUE | NOT NULL | Número do CEP, somente dígitos |
+| `FK_ENCI_ID_CIDADE` | INT | FK | NOT NULL | Cidade do CEP (ENDERECO_CIDADE) |
+
+### ENDERECO
+
+Endereços de clientes, proprietários e hospedagens.
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `ENDE_ID_ENDERECO` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador do endereço |
+| `ENDE_NR_ENDERECO` | VARCHAR(10) | Simples | NULL | Número do imóvel (pode ser vazio, ex.: "s/n") |
+| `ENDE_DS_COMPLEMENTO` | VARCHAR(100) | Simples | NULL | Complemento do endereço (apartamento, bloco etc.) |
+| `FK_ENCE_ID_CEP` | INT | FK | NOT NULL | CEP do endereço (ENDERECO_CEP) |
+| `ENDE_DS_BAIRRO` | VARCHAR(100) | Simples | NOT NULL | Bairro |
+| `ENDE_DS_LOGRADOURO` | VARCHAR(100) | Simples | NOT NULL | Logradouro (rua, avenida etc.) |
+
+### CADASTRO_HOSPEDAGEM
+
+Hospedagens cadastradas pelos proprietários. Toda hospedagem começa como rascunho até ser publicada.
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `CAHO_ID_HOSPEDAGEM` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador da hospedagem |
+| `FK_PROP_ID_PROPRIETARIO` | INT | FK | NOT NULL | Proprietário da hospedagem (PROPRIETARIO) |
+| `CAHO_NM_HOSPEDAGEM` | VARCHAR(100) | Simples | NOT NULL | Nome da hospedagem exibido no anúncio |
+| `CAHO_DS_IMOVEL` | VARCHAR(255) | Simples | NULL | Descrição do imóvel |
+| `CAHO_TP_IMOVEL` | VARCHAR(30) | Simples | NOT NULL | Tipo de imóvel (casa, apartamento, chalé, pousada etc.) |
+| `CAHO_NR_CAPACIDADE` | INT | Simples | NULL | Número máximo de hóspedes |
+| `CAHO_NR_AREA` | DECIMAL(7,2) | Simples | NULL | Área do imóvel, em m² |
+| `CAHO_HR_CHECKIN` | TIME | Simples | NOT NULL | Horário de check-in |
+| `CAHO_HR_CHECKOUT` | TIME | Simples | NOT NULL | Horário de check-out |
+| `CAHO_NR_ANTECEDENCIA` | INT | Simples | NOT NULL | Antecedência mínima para reservar, em dias |
+| `CAHO_NR_ESTADIA_MINIMA` | INT | Simples | NOT NULL | Número mínimo de noites por reserva |
+| `CAHO_LG_FUMANTES` | TINYINT(1) | Simples | NOT NULL, DEFAULT 0 | Indica se é permitido fumar (0 = não, 1 = sim) |
+| `CAHO_LG_FESTAS` | TINYINT(1) | Simples | NOT NULL, DEFAULT 0 | Indica se são permitidas festas (0 = não, 1 = sim) |
+| `CAHO_VL_DIARIA` | DECIMAL(10,2) | Simples | NOT NULL | Valor padrão da diária |
+| `CAHO_VL_FIM_SEMANA` | DECIMAL(10,2) | Simples | NULL | Valor da diária nos fins de semana |
+| `CAHO_VL_LIMPEZA` | DECIMAL(10,2) | Simples | NULL, DEFAULT 0.00 | Taxa de limpeza cobrada por reserva |
+| `CAHO_DS_STATUS` | VARCHAR(20) | Simples | NOT NULL, DEFAULT 'RASCUNHO' | Situação da hospedagem (RASCUNHO ou PUBLICADA) |
+| `FK_ENDE_ID_ENDERECO` | INT | FK / UNIQUE | NOT NULL | Endereço da hospedagem (ENDERECO). Cada endereço pertence a uma única hospedagem |
+
+### FOTO_HOSPEDAGEM
+
+Fotos das hospedagens, exibidas em ordem definida pelo proprietário.
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `FOHO_ID_FOTO` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador da foto |
+| `FK_CAHO_ID_HOSPEDAGEM` | INT | FK | NOT NULL | Hospedagem da foto (CADASTRO_HOSPEDAGEM) |
+| `FOHO_DS_CAMINHO` | VARCHAR(255) | Simples | NOT NULL | Caminho ou URL do arquivo da foto |
+| `FOHO_NR_ORDEM` | INT | Simples | NOT NULL | Posição da foto na galeria |
+
+### COMODIDADES
+
+Lista de comodidades que uma hospedagem pode oferecer (ex.: Wi-Fi, piscina).
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `COMO_ID_COMODIDADES` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador da comodidade |
+| `COMO_NM_COMODIDADE` | VARCHAR(50) | UNIQUE | NOT NULL | Nome da comodidade |
+
+### HOSPEDAGEM_COMODIDADES
+
+Associação entre hospedagens e comodidades (relacionamento N:N).
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `FK_COMO_ID_COMODIDADES` | INT | PK / FK | NOT NULL | Comodidade oferecida (COMODIDADES) |
+| `FK_CAHO_ID_HOSPEDAGEM` | INT | PK / FK | NOT NULL | Hospedagem que oferece a comodidade (CADASTRO_HOSPEDAGEM) |
+
+### PRECO_PERIODO
+
+Preços por noite diferenciados por período (ex.: alta temporada, feriados).
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `PRPE_ID_PERIODO` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador do período |
+| `FK_CAHO_ID_HOSPEDAGEM` | INT | FK | NOT NULL | Hospedagem a que o preço se aplica (CADASTRO_HOSPEDAGEM) |
+| `PRPE_DT_INICIO` | DATE | Simples | NOT NULL | Data de início do período |
+| `PRPE_DT_FIM` | DATE | Simples | NOT NULL | Data de fim do período |
+| `PRPE_DS_TIPO` | VARCHAR(30) | Simples | NOT NULL | Tipo do período (ex.: alta temporada, feriado) |
+| `PRPE_VL_NOITE` | DECIMAL(10,2) | Simples | NOT NULL | Valor da noite no período |
+
+### CUPOM
+
+Cupons de desconto que podem ser aplicados nas reservas.
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `CUPO_ID_CUPOM` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador do cupom |
+| `CUPO_DS_CODIGO` | VARCHAR(30) | UNIQUE | NOT NULL | Código que o cliente digita para usar o cupom |
+| `CUPO_DS_TIPO` | VARCHAR(12) | Simples | NOT NULL | Tipo de desconto (percentual ou valor fixo) |
+| `CUPO_VL_DESCONTO` | DECIMAL(10,2) | Simples | NOT NULL | Valor do desconto (percentual ou em reais, conforme o tipo) |
+| `CUPO_DT_VALIDADE` | DATE | Simples | NULL | Data de validade do cupom. Vazio = sem prazo |
+| `CUPO_LG_ATIVO` | TINYINT(1) | Simples | NOT NULL, DEFAULT 1 | Indica se o cupom está ativo (0 = não, 1 = sim) |
+
+### RESERVA
+
+Reservas feitas pelos clientes nas hospedagens.
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `FK_CAHO_ID_HOSPEDAGEM` | INT | FK | NOT NULL | Hospedagem reservada (CADASTRO_HOSPEDAGEM) |
+| `FK_CLIE_ID_CLIENTE` | INT | FK | NOT NULL | Cliente que fez a reserva (CLIENTE) |
+| `FK_CUPO_ID_CUPOM` | INT | FK | NULL | Cupom aplicado na reserva (CUPOM). Vazio quando não há cupom |
+| `RESE_ID_RESERVA` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador da reserva |
+| `RESE_DT_CHECKIN` | DATETIME | Simples | NOT NULL | Data e hora de entrada |
+| `RESE_DT_CHECKOUT` | DATETIME | Simples | NOT NULL | Data e hora de saída |
+| `RESE_NR_HOSPEDE` | INT | Simples | NOT NULL | Número de hóspedes |
+| `RESE_LG_CONTRATO` | TINYINT(1) | Simples | NOT NULL, DEFAULT 0 | Indica se o cliente aceitou o contrato (0 = não, 1 = sim) |
+| `RESE_DS_CODIGO` | VARCHAR(15) | UNIQUE | NULL | Código da reserva exibido ao cliente (ex.: #HERA-02541) |
+| `RESE_VL_TOTAL` | DECIMAL(10,2) | Simples | NOT NULL | Valor total da reserva |
+| `RESE_VL_DESCONTO` | DECIMAL(10,2) | Simples | NOT NULL, DEFAULT 0.00 | Valor do desconto aplicado |
+
+### PAGAMENTO
+
+Formas de pagamento aceitas (ex.: Pix, cartão de crédito).
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `PAGA_ID_PAGAMENTO` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador da forma de pagamento |
+| `PAGA_TP_PAGAMENTO` | VARCHAR(20) | Simples | NOT NULL | Nome da forma de pagamento |
+
+### RESERVA_PAGAMENTO
+
+Pagamentos de cada reserva. Uma reserva pode ser paga com várias formas combinadas.
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `FK_RESE_ID_RESERVA` | INT | PK / FK | NOT NULL | Reserva paga (RESERVA) |
+| `FK_PAGA_ID_PAGAMENTO` | INT | PK / FK | NOT NULL | Forma de pagamento usada (PAGAMENTO) |
+| `REPA_VL_PAGO` | DECIMAL(10,2) | Simples | NOT NULL | Valor pago nessa forma de pagamento |
+| `REPA_DT_PAGAMENTO` | DATETIME | Simples | NOT NULL | Data e hora do pagamento |
+| `REPA_DS_STATUS` | VARCHAR(20) | Simples | NOT NULL | Situação do pagamento (ex.: pendente, aprovado, recusado) |
+
+### AVALIACAO_HOSPEDAGEM
+
+Avaliação da hospedagem feita pelo cliente. Cada reserva recebe no máximo uma avaliação.
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `AVHO_ID_AVALIACAO` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador da avaliação |
+| `AVHO_NR_GERAL` | INT | Simples | NOT NULL | Nota geral (1 a 5) |
+| `AVHO_NR_LIMPEZA` | INT | Simples | NOT NULL | Nota de limpeza (1 a 5) |
+| `AVHO_NR_CONFORTO` | INT | Simples | NOT NULL | Nota de conforto (1 a 5) |
+| `AVHO_NR_ATENDIMENTO` | INT | Simples | NOT NULL | Nota de atendimento (1 a 5) |
+| `AVHO_NR_CUSTO_BENEFICIO` | INT | Simples | NOT NULL | Nota de custo-benefício (1 a 5) |
+| `AVHO_DS_COMENTARIO` | VARCHAR(255) | Simples | NULL | Comentário opcional do cliente |
+| `AVHO_DT_AVALIACAO` | DATETIME | Simples | NULL, DEFAULT CURRENT_TIMESTAMP | Data e hora da avaliação |
+| `FK_RESE_ID_RESERVA` | INT | FK / UNIQUE | NOT NULL | Reserva avaliada (RESERVA) |
+
+### AVALIACAO_CLIENTE
+
+Avaliação do cliente feita pelo proprietário. Cada reserva recebe no máximo uma avaliação.
+
+| CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
+|:---|:---|:---|:---|:---|
+| `AVCL_ID_AVALIACAO` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador da avaliação |
+| `AVCL_NR_GERAL` | INT | Simples | NOT NULL | Nota geral do cliente (1 a 5) |
+| `AVCL_NR_COMUNICACAO` | INT | Simples | NOT NULL | Nota de comunicação (1 a 5) |
+| `AVCL_NR_PONTUALIDADE` | INT | Simples | NOT NULL | Nota de pontualidade no check-in e no check-out (1 a 5) |
+| `AVCL_NR_RESPEITO_REGRA` | INT | Simples | NOT NULL | Nota de respeito às regras da hospedagem (1 a 5) |
+| `AVCL_NR_CUIDADO_IMOVEL` | INT | Simples | NOT NULL | Nota de cuidado com o imóvel (1 a 5) |
+| `AVCL_DS_COMENTARIO` | VARCHAR(255) | Simples | NULL | Comentário opcional do proprietário |
+| `AVCL_DT_AVALIACAO` | DATETIME | Simples | NULL, DEFAULT CURRENT_TIMESTAMP | Data e hora da avaliação |
+| `FK_RESE_ID_RESERVA` | INT | FK / UNIQUE | NOT NULL | Reserva avaliada (RESERVA) |
+
+
+[ [INÍCIO](#projeto-de-software) ]
+
+# Diagrama de Atividades
+
+[INSERIR DIAGRAMA DE ATIVIDADES EM `img/`]
+
+
+# Diagrama de Sequência
+
+### Solicitar Reserva
+
+![Diagrama de sequência — Solicitar Reserva](img/sequencia_solicitar_reserva.png)
+
+### Cadastrar Acomodação
+
+![Diagrama de sequência — Cadastrar Acomodação](img/sequencia_cadastrar_acomodacao.png)
+
+
+# Diagrama de Classes
+
+### Usuários
+
+![Diagrama de classes — Usuários](img/classes_usuarios.png)
+
+### Acomodações
+
+![Diagrama de classes — Acomodações](img/classes_acomodacoes.png)
+
+### Reservas e Avaliação
+
+![Diagrama de classes — Reservas e Avaliação](img/classes_reservas_avaliacao.png)
+
+> Os valores do enum `SituacaoReserva` ainda serão validados com a cliente.
+
+
+# Diagrama de Casos de Uso
+
+### Gestão de Acomodações
+
+![Casos de uso — Gestão de Acomodações](img/caso_uso_gestao_acomodacoes.png)
+
+### Reserva de Hospedagem
+
+![Casos de uso — Reserva de Hospedagem](img/caso_uso_reserva_hospedagem.png)
+
+### Acompanhamento e Avaliação
+
+![Casos de uso — Acompanhamento e Avaliação](img/caso_uso_acompanhamento_avaliacao.png)
+
+
+## Especificação dos Casos de Uso
+
+### UC-01 - Cadastrar Acomodação
+
+|UC-01 - Cadastrar Acomodação|
+|:---|
+|*Descrição/Objetivo:* Permite que o proprietário cadastre uma nova acomodação na plataforma.|
+|*Atores:* Proprietário|
+|*Pré-condições:* Proprietário autenticado no sistema.|
+|*Pós-condições:* Acomodação cadastrada e visível nas pesquisas.|
+|*FLUXO PRINCIPAL / BÁSICO:*|
+|1. Proprietário acessa a opção "Cadastrar acomodação".|
+|2. O sistema exibe o formulário com dados do imóvel, endereço, regras, preços e fotos.|
+|3. Proprietário preenche os dados e envia ao menos uma foto.|
+|4. Proprietário confirma o cadastro.|
+|5. O sistema valida se os dados obrigatórios estão completos.|
+|6. O sistema cria a acomodação e exibe mensagem de sucesso.|
+|*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
+|*A1: Dados incompletos ou inválidos:*|
+|1. No passo 5, o sistema identifica campos obrigatórios ausentes ou inválidos.|
+|2. O sistema exibe a mensagem "dados inválidos", indicando os campos.|
+|3. Proprietário corrige os dados e o fluxo retorna ao passo 4.|
+
+### UC-02 - Informar Disponibilidade
+
+|UC-02 - Informar Disponibilidade|
+|:---|
+|*Descrição/Objetivo:* Permite que o proprietário defina os períodos disponíveis, bloqueados e os preços por período de uma acomodação.|
+|*Atores:* Proprietário|
+|*Pré-condições:* Proprietário autenticado e com ao menos uma acomodação cadastrada.|
+|*Pós-condições:* Disponibilidade e preços da acomodação atualizados.|
+|*FLUXO PRINCIPAL / BÁSICO:*|
+|1. Proprietário seleciona uma de suas acomodações.|
+|2. O sistema exibe o calendário com os períodos livres, bloqueados e reservados.|
+|3. Proprietário seleciona um período e escolhe bloquear, desbloquear ou definir preço.|
+|4. O sistema valida o período e salva a alteração.|
+|*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
+|*A1: Período com reserva ativa:*|
+|1. Se o período selecionado tiver reserva ativa, o sistema impede o bloqueio e informa o motivo.|
+|*A2: Data final anterior à inicial:*|
+|1. O sistema exibe alerta e solicita a correção do período.|
+
+### UC-03 - Pesquisar Acomodações
+
+|UC-03 - Pesquisar Acomodações|
+|:---|
+|*Descrição/Objetivo:* Permite que o cliente encontre acomodações de acordo com seus critérios.|
+|*Atores:* Cliente|
+|*Pré-condições:* Nenhuma.|
+|*Pós-condições:* Lista de acomodações compatíveis exibida.|
+|*FLUXO PRINCIPAL / BÁSICO:*|
+|1. Cliente informa cidade, datas de check-in e check-out e número de hóspedes.|
+|2. O sistema busca as acomodações compatíveis e disponíveis no período.|
+|3. O sistema exibe a lista com foto, nome, preço e nota média.|
+|4. Cliente seleciona uma acomodação e o sistema exibe seus detalhes.|
+|*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
+|*A1: Nenhum resultado:*|
+|1. O sistema informa que não há acomodações para os critérios e sugere alterar a busca.|
+
+### UC-04 - Solicitar Reserva
+
+|UC-04 - Solicitar Reserva|
+|:---|
+|*Descrição/Objetivo:* Permite que o cliente reserve uma acomodação para um período.|
+|*Atores:* Cliente|
+|*Pré-condições:* Cliente autenticado e acomodação selecionada.|
+|*Pós-condições:* Reserva registrada e o período ocupado na acomodação.|
+|*FLUXO PRINCIPAL / BÁSICO:*|
+|1. Cliente informa o período e o número de hóspedes e solicita a reserva.|
+|2. O sistema verifica a disponibilidade do período (inclui UC-05).|
+|3. O sistema calcula e exibe o valor total (diárias, taxa de limpeza e descontos).|
+|4. Cliente confirma a reserva.|
+|5. O sistema registra a reserva e exibe o código da reserva.|
+|*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
+|*A1: Período indisponível:*|
+|1. No passo 2, o sistema retorna "indisponível" e solicita outro período.|
+|*A2: Hóspedes acima da capacidade:*|
+|1. O sistema informa a capacidade máxima e solicita a correção.|
+|*A3: Cupom de desconto:*|
+|1. No passo 3, cliente informa um cupom.|
+|2. Se o cupom estiver ativo e válido, o sistema aplica o desconto; caso contrário, informa que o cupom é inválido.|
+
+### UC-05 - Verificar Disponibilidade
+
+|UC-05 - Verificar Disponibilidade|
+|:---|
+|*Descrição/Objetivo:* Verifica se a acomodação está livre no período solicitado. É incluído pelo UC-04.|
+|*Atores:* Sistema (incluído por Solicitar Reserva)|
+|*Pré-condições:* Período e acomodação informados.|
+|*Pós-condições:* Resultado "disponível" ou "indisponível" retornado.|
+|*FLUXO PRINCIPAL / BÁSICO:*|
+|1. O sistema consulta os períodos bloqueados da acomodação.|
+|2. O sistema consulta as reservas ativas da acomodação.|
+|3. Se não houver sobreposição, retorna "disponível"; caso contrário, "indisponível".|
+
+### UC-06 - Cancelar Reserva
+
+|UC-06 - Cancelar Reserva|
+|:---|
+|*Descrição/Objetivo:* Permite que o cliente cancele uma reserva.|
+|*Atores:* Cliente|
+|*Pré-condições:* Cliente autenticado com reserva ainda não concluída.|
+|*Pós-condições:* Reserva com situação "Cancelada" e período liberado na acomodação.|
+|*FLUXO PRINCIPAL / BÁSICO:*|
+|1. Cliente acessa "Minhas reservas" e seleciona a reserva.|
+|2. Cliente escolhe "Cancelar reserva".|
+|3. O sistema pede confirmação.|
+|4. Cliente confirma.|
+|5. O sistema altera a situação para "Cancelada" e libera o período.|
+|*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
+|*A1: Reserva já concluída ou cancelada:*|
+|1. O sistema não exibe a opção de cancelamento.|
+
+### UC-07 - Acompanhar Reservas
+
+|UC-07 - Acompanhar Reservas|
+|:---|
+|*Descrição/Objetivo:* Permite que cliente e proprietário consultem suas reservas.|
+|*Atores:* Cliente, Proprietário|
+|*Pré-condições:* Usuário autenticado.|
+|*Pós-condições:* Lista de reservas exibida.|
+|*FLUXO PRINCIPAL / BÁSICO:*|
+|1. Usuário acessa "Minhas reservas" (cliente) ou "Reservas recebidas" (proprietário).|
+|2. O sistema exibe as reservas com acomodação, período, valor e situação.|
+|3. Usuário seleciona uma reserva para ver os detalhes.|
+|*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
+|*A1: Nenhuma reserva:*|
+|1. O sistema informa que não há reservas.|
+
+### UC-08 - Atualizar Situação da Reserva
+
+|UC-08 - Atualizar Situação da Reserva|
+|:---|
+|*Descrição/Objetivo:* Permite que o proprietário atualize a situação de uma reserva da sua acomodação.|
+|*Atores:* Proprietário|
+|*Pré-condições:* Proprietário autenticado com reserva recebida.|
+|*Pós-condições:* Situação da reserva atualizada. Se "Concluída", o cliente passa a poder avaliar (UC-09).|
+|*FLUXO PRINCIPAL / BÁSICO:*|
+|1. Proprietário seleciona uma reserva recebida.|
+|2. Proprietário escolhe a nova situação.|
+|3. O sistema valida se a transição é permitida.|
+|4. O sistema salva a nova situação.|
+|*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
+|*A1: Transição inválida:*|
+|1. Se a transição não for permitida (ex.: reserva cancelada para concluída), o sistema informa e mantém a situação atual.|
+
+### UC-09 - Avaliar Hospedagem
+
+|UC-09 - Avaliar Hospedagem|
+|:---|
+|*Descrição/Objetivo:* Permite que o cliente avalie a hospedagem. Estende o UC-08 quando a hospedagem é concluída.|
+|*Atores:* Cliente|
+|*Pré-condições:* Reserva com situação "Concluída" e ainda sem avaliação.|
+|*Pós-condições:* Avaliação registrada e exibida na página da acomodação.|
+|*FLUXO PRINCIPAL / BÁSICO:*|
+|1. Cliente acessa a reserva concluída e escolhe "Avaliar".|
+|2. O sistema exibe o formulário de avaliação.|
+|3. Cliente informa notas de 1 a 5 (geral, limpeza, conforto, atendimento e custo-benefício) e, opcionalmente, um comentário.|
+|4. O sistema registra a avaliação.|
+|*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
+|*A1: Reserva já avaliada:*|
+|1. O sistema informa que a reserva já foi avaliada.|
+|*A2: Nota fora do intervalo:*|
+|1. O sistema solicita notas entre 1 e 5.|
+
+
+
+[ [INÍCIO](#projeto-de-software) ]
+
+# REFERÊNCIAS
+
+Esta subseção apresenta as referências aos documentos que utilizamos no auxílio à construção deste documento.
+* [UML](https://www.omg.org/spec/UML/2.5/About-UML/)
+* [Práticas para Especificação de Requisitos IEEE-830](https://ieeexplore.ieee.org/document/720574)
+* [Lei Geral de Proteção de Dados (Lei nº 13.709/2018)](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm)
