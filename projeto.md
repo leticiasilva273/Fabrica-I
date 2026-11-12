@@ -4,7 +4,7 @@
 |NOME|CARGO|E-MAIL|
 |:---|:---|:---|
 |Gilberto Silva|Professor|gilberto.silva@ifro.edu.br|
-|Taline França|Cliente|[E-MAIL]|
+
 
 
 # Sumário
