@@ -4,7 +4,7 @@
 |NOME|CARGO|E-MAIL|
 |:---|:---|:---|
 |Gilberto Silva|Professor|gilberto.silva@ifro.edu.br|
-
+|Taline França|Cliente|[E-MAIL]|
 
 
 # Sumário
@@ -23,8 +23,10 @@
   * [MÉTRICAS](#métricas)
   * [DIFICULDADES E APRENDIZADOS](#dificuldades-e-aprendizados)
 * [REQUISITOS DO SOFTWARE](#requisitos-do-software)
+  * [MINIMUNDO](#minimundo)
   * [REQUISITOS FUNCIONAIS](#requisitos-funcionais)
   * [REQUISITOS NÃO FUNCIONAIS](#requisitos-não-funcionais)
+  * [REGRAS DE NEGÓCIO](#regras-de-negócio)
   * [USER STORIES](#user-stories)
 * [PROTOTIPAGEM](#prototipagem)
 * [MODELO LÓGICO DO BANCO DE DADOS](#modelo-lógico-do-banco-de-dados)
@@ -78,6 +80,8 @@ Métodos utilizados para a obtenção dos requisitos do sistema:
 |:---|:---|
 | **Cliente** | Pessoa que procura hospedagem. Pesquisa acomodações, consulta detalhes, solicita e cancela reservas, acompanha suas reservas e avalia a hospedagem após concluí-la. |
 | **Proprietário** | Pessoa física ou jurídica que oferece acomodações. Cadastra e administra acomodações, informa a disponibilidade e os preços por período, acompanha as reservas recebidas e atualiza a situação delas. |
+| **Administrador** | Responsável pela gestão da plataforma. Cadastra e gerencia cupons de desconto e consulta relatórios de reservas. |
+| **Visitante** | Pessoa sem cadastro. Pode pesquisar e consultar hospedagens, mas precisa se cadastrar para reservar. |
 
 
 ## Abrangência e sistemas similares
@@ -178,6 +182,30 @@ O trabalho é registrado como issues no GitLab, organizadas em três marcos:
 | Ana Moura | 11 |
 | Ana Funari | 6 |
 
+### Milestone 1 (21/07 a 15/09/2026)
+
+Métricas obtidas no painel FSBoard (dashboard.fslab.dev), a partir do quadro de issues do GitLab:
+
+![Métricas do Milestone 1](img/metricas/metricas_m1.png)
+
+| MÉTRICA | VALOR |
+|:---|:---|
+| Issues entregues | 40 |
+| Throughput | 40 issues entregues na semana 37 (07/09 a 13/09) |
+| Lead time (mediana, criação → feito) | 17 dias |
+| Lead time P85 | 20,1 dias |
+| Cycle time (mediana, Doing → feito) | menos de 1 hora (24 issues) |
+| Tempo em revisão | nenhuma issue passou por Review/QA |
+| Retrabalho (voltaram ao quadro) | 40% (16 de 40) |
+
+Distribuição do lead time: 31 issues entre 10 e 20 dias e 9 acima de 20 dias.
+
+![Distribuição do lead time no Milestone 1](img/metricas/metricas_m1_lead_time.png)
+
+**Análise:** todas as entregas do Milestone 1 foram concluídas na mesma semana, perto do prazo, o que explica o lead time alto (17 dias) e concentrado. O cycle time abaixo de 1 hora mostra que as issues eram movidas para Doing e para concluído quase ao mesmo tempo, ou seja, o quadro não acompanhava o andamento real do trabalho. Nenhuma issue passou pela coluna Review, e 40% voltaram ao quadro depois de entregues. A partir disso, a equipe passou a mover as issues no quadro conforme o trabalho avança e a usar a coluna Review antes de concluir.
+
+### Milestone 2 (16/09 a 20/10/2026)
+
 **Fluxo Kanban no Milestone 2** (8 itens concluídos, apresentado em 20/10/2026):
 
 | MÉTRICA | VALOR |
@@ -203,34 +231,72 @@ Distribuição do Cycle Time: 3 itens em até 2 dias, 2 itens entre 5 e 10 dias 
 
 A especificação dos requisitos deste documento segue as recomendações da norma IEEE Std-830-1998, levando em conta as recomendações do documento de [características dos requisitos](caracteristicas_requisitos.md).
 
+## Minimundo
+
+Uma plataforma de hospedagem por temporada conecta proprietários de imóveis (casas, apartamentos, chalés, pousadas e similares) a clientes que desejam se hospedar por períodos curtos. Hoje, o controle de disponibilidade, preços por período, reservas, pagamentos e avaliações é feito de forma manual, por mensagens e planilhas, o que dificulta a organização e o controle das informações.
+
+Para resolver esse problema, será desenvolvido um website que armazena as informações de usuários, clientes, proprietários, endereços, hospedagens, fotos, comodidades, preços por período, cupons de desconto, reservas, pagamentos e avaliações. O sistema permitirá cadastrar e publicar hospedagens, registrar reservas, aplicar cupons, registrar pagamentos com formas combinadas, receber avaliações e gerar relatórios de reservas.
+
 ## Requisitos Funcionais
 
-A tabela a seguir contém a relação completa dos Requisitos Funcionais elicitados:
+Os requisitos RF-001 a RF-010 foram elicitados no Milestone 1, por entrevista com a cliente. Os requisitos RF-011 a RF-014 foram identificados durante a modelagem do banco de dados (Milestone 2) e incorporados à especificação no Milestone 3.
 
 | IDENTIFICADOR | NOME | DESCRIÇÃO | PRIORIDADE | ORIGEM |
 | :--- | :--- | :--- | :--- | :--- |
-| **RF-001** | Usuários | O sistema deve permitir o cadastro de usuário com e-mail, senha e perfil (Cliente ou Proprietário), e a manutenção dos dados pessoais: nome completo, CPF (ou CNPJ, para proprietário), data de nascimento (cliente), celular e endereço. | Essencial | Entrevista |
-| **RF-002** | Autenticação | O sistema deve permitir o acesso com e-mail e senha ou com conta Google, e a recuperação de senha por um código de 5 caracteres enviado ao e-mail, com prazo de validade e uso único. | Essencial | Entrevista |
-| **RF-003** | Acomodações | O sistema deve permitir que o proprietário cadastre e atualize acomodações (dados do imóvel, endereço, regras, horários, valores, fotos e comodidades) e informe a disponibilidade, bloqueando períodos e definindo preços por período. | Essencial | UC-01, UC-02 |
-| **RF-004** | Consulta de acomodações | O sistema deve permitir que o cliente pesquise acomodações por cidade, período e número de hóspedes e consulte os detalhes de cada uma (fotos, descrição, comodidades, regras, preços e avaliações). | Essencial | UC-03 |
-| **RF-005** | Solicitação de reserva | O sistema deve permitir que o cliente solicite uma reserva informando check-in, check-out e número de hóspedes, verificando a disponibilidade do período e calculando o valor total, com aplicação de cupom de desconto válido. | Essencial | UC-04, UC-05 |
-| **RF-006** | Ciclo da reserva | O sistema deve controlar a situação da reserva e permitir apenas as transições válidas entre situações. | Essencial | UC-08 |
-| **RF-007** | Reservas do proprietário | O sistema deve permitir que o proprietário consulte as reservas recebidas em suas acomodações e atualize a situação de cada uma. | Essencial | UC-07, UC-08 |
-| **RF-008** | Reservas do cliente | O sistema deve permitir que o cliente consulte suas reservas, com acomodação, período, valor e situação. | Essencial | UC-07 |
-| **RF-009** | Cancelamento | O sistema deve permitir que o cliente cancele uma reserva ainda não concluída, liberando o período na acomodação. | Essencial | UC-06 |
-| **RF-010** | Avaliações | O sistema deve permitir que o cliente avalie uma hospedagem concluída, uma única vez por reserva, com notas de 1 a 5 (geral, limpeza, conforto, atendimento e custo-benefício) e comentário opcional. | Essencial | UC-09 |
+| **RF-001** | Cadastro e manutenção de usuários | O sistema deve permitir o cadastro de usuário com e-mail e senha ou conta Google, com perfil de cliente e/ou de proprietário, e a alteração dos dados cadastrais: nome completo, CPF (ou CNPJ, para proprietário), data de nascimento (cliente), celular e endereço. | Essencial | Entrevista (#4) |
+| **RF-002** | Autenticação de usuários | O sistema deve permitir o acesso com e-mail e senha ou com conta Google, e a recuperação de senha por um código de 5 caracteres enviado ao e-mail, com prazo de validade e uso único. | Essencial | Entrevista (#6) |
+| **RF-003** | Cadastro e manutenção de acomodações | O sistema deve permitir que o proprietário cadastre e altere hospedagens (dados do imóvel, endereço, regras, horários, valores, fotos ordenadas e comodidades), defina preços por período e publique a hospedagem, que fica como rascunho até ser publicada. | Essencial | Entrevista (#11) |
+| **RF-004** | Consulta de acomodações | O sistema deve permitir que qualquer pessoa pesquise hospedagens publicadas por cidade, período e número de hóspedes, com filtros de preço, avaliação, tipo e comodidades, e consulte os detalhes de cada uma (fotos, descrição, comodidades, regras, preços e avaliações). | Essencial | Entrevista (#7) |
+| **RF-005** | Solicitação de reserva | O sistema deve permitir que o cliente solicite uma reserva informando check-in, check-out e número de hóspedes, verificando a disponibilidade do período, calculando o valor total conforme o preço por noite de cada período e aplicando cupom de desconto ativo e válido. | Essencial | Entrevista (#15) |
+| **RF-006** | Ciclo da reserva | O sistema deve controlar a situação da reserva (solicitada, confirmada, concluída e cancelada) e permitir apenas as transições válidas entre situações. | Essencial | Entrevista (#18) |
+| **RF-007** | Reservas do proprietário | O sistema deve permitir que o proprietário consulte as reservas recebidas em suas hospedagens e atualize a situação de cada uma. | Essencial | Entrevista (#17) |
+| **RF-008** | Reservas do cliente | O sistema deve permitir que o cliente consulte suas reservas, com hospedagem, período, valor e situação. | Essencial | Entrevista (#8) |
+| **RF-009** | Cancelamento de reserva | O sistema deve permitir que o cliente cancele uma reserva ainda não concluída, liberando o período na hospedagem. | Essencial | Entrevista (#10) |
+| **RF-010** | Avaliações | O sistema deve permitir que, após a hospedagem concluída, o cliente avalie a hospedagem (notas de 1 a 5 para geral, limpeza, conforto, atendimento e custo-benefício) e o proprietário avalie o cliente (notas de 1 a 5 para geral, comunicação, pontualidade, respeito às regras e cuidado com o imóvel), uma única vez por reserva, com comentário opcional. | Essencial | Entrevista (#14) |
+| **RF-011** | Pagamento da reserva | O sistema deve registrar o pagamento da reserva, permitindo combinar mais de uma forma de pagamento, com valor pago, data e situação de cada pagamento. | Essencial | Modelagem do BD |
+| **RF-012** | Preferências do cliente | O sistema deve permitir que o cliente registre suas preferências de hospedagem. | Opcional | Modelagem do BD |
+| **RF-013** | Gestão de cupons | O sistema deve permitir que o administrador cadastre cupons de desconto com código único, tipo, valor e validade, e os ative ou desative. | Condicional | Modelagem do BD |
+| **RF-014** | Relatórios de reservas | O sistema deve permitir que o proprietário consulte relatórios das reservas de suas hospedagens e que o administrador consulte relatórios de todas as reservas da plataforma. | Condicional | Modelagem do BD |
 
 
 ## Requisitos Não Funcionais
 
-A tabela a seguir contém a relação dos Requisitos Não-Funcionais elicitados:
+Os requisitos RNF-001 a RNF-004 foram elicitados no Milestone 1. Os requisitos RNF-005 a RNF-008 vieram da modelagem do banco de dados e foram reescritos de forma verificável.
 
-| IDENTIFICADOR | NOME | DESCRIÇÃO |
-|:---|:---|:---|
-| RNF-001 | Proteção de dados | As senhas devem ser armazenadas com hash, e o tratamento de dados pessoais (CPF, CNPJ, e-mail, celular) deve seguir a LGPD (Lei nº 13.709/2018). |
-| RNF-002 | Controle de acesso por perfil | Cada funcionalidade só pode ser executada pelo perfil autorizado: o cliente acessa apenas as próprias reservas, e o proprietário, apenas as próprias acomodações e as reservas recebidas nelas. |
-| RNF-003 | Integridade das reservas | O sistema não deve permitir duas reservas ativas para a mesma acomodação em períodos sobrepostos, nem reservas em períodos bloqueados. |
-| RNF-004 | Rastreabilidade | O sistema deve registrar as alterações relevantes (como mudanças de situação da reserva), com data, hora e usuário responsável. |
+| IDENTIFICADOR | NOME | DESCRIÇÃO | ORIGEM |
+|:---|:---|:---|:---|
+| RNF-001 | Proteção dos dados pessoais | As senhas devem ser armazenadas com hash, e o tratamento de dados pessoais (CPF, CNPJ, e-mail e celular) deve seguir a LGPD (Lei nº 13.709/2018). | Entrevista (#19) |
+| RNF-002 | Controle de acesso por perfil | Cada funcionalidade só pode ser executada pelo perfil autorizado: o cliente acessa apenas as próprias reservas; o proprietário, apenas as próprias hospedagens e as reservas recebidas nelas; e o administrador, as funções de gestão da plataforma. | Entrevista (#39) |
+| RNF-003 | Integridade dos dados das reservas | O sistema não deve permitir duas reservas ativas para a mesma hospedagem em períodos sobrepostos. | Entrevista (#42) |
+| RNF-004 | Rastreabilidade das alterações | O sistema deve registrar as alterações relevantes, como mudanças na situação da reserva, com data, hora e usuário responsável. | Entrevista (#43) |
+| RNF-005 | Usabilidade | O usuário deve conseguir concluir uma reserva, a partir da página da hospedagem, em no máximo 5 passos. | Modelagem do BD |
+| RNF-006 | Desempenho | 95% das buscas de hospedagens devem retornar resultados em até 3 segundos. | Modelagem do BD |
+| RNF-007 | Compatibilidade | O sistema deve funcionar nas versões atuais do Chrome, Firefox, Edge e Safari, com layout responsivo para celulares, tablets e computadores. | Modelagem do BD |
+| RNF-008 | Normalização do banco de dados | O banco de dados deve seguir a 3ª Forma Normal. | Modelagem do BD |
+
+
+## Regras de Negócio
+
+| IDENTIFICADOR | REGRA |
+|:---|:---|
+| RN-001 | Um usuário acessa o sistema por e-mail e senha ou pela conta Google. |
+| RN-002 | Um usuário pode ter perfil de cliente, de proprietário ou os dois. |
+| RN-003 | Um usuário pode solicitar várias recuperações de senha; cada uma tem código próprio, prazo de validade e controle de uso. |
+| RN-004 | O proprietário deve informar CPF ou CNPJ. |
+| RN-005 | Um proprietário pode cadastrar várias hospedagens, e cada hospedagem pertence a um único proprietário. |
+| RN-006 | Cliente, proprietário e hospedagem possuem, cada um, um único endereço. Um endereço tem um único CEP, e um CEP pertence a uma única cidade. |
+| RN-007 | Uma hospedagem pode ter várias fotos, exibidas em ordem definida pelo proprietário. |
+| RN-008 | Uma hospedagem pode oferecer várias comodidades, e uma comodidade pode estar em várias hospedagens. |
+| RN-009 | Uma hospedagem pode ter vários períodos com preço por noite diferenciado. |
+| RN-010 | Toda hospedagem começa como rascunho e só aparece nas buscas depois de publicada pelo proprietário. |
+| RN-011 | Um cliente pode escolher várias preferências, e uma preferência pode ser escolhida por vários clientes. |
+| RN-012 | Uma reserva pertence a um único cliente e a uma única hospedagem; um cliente e uma hospedagem podem ter várias reservas. |
+| RN-013 | Não pode haver duas reservas ativas para a mesma hospedagem em períodos sobrepostos. |
+| RN-014 | O valor total da reserva é calculado pelo preço por noite de cada período, somado à taxa de limpeza e descontado o cupom. |
+| RN-015 | Uma reserva pode usar no máximo um cupom; um cupom tem código único, pode ser usado em várias reservas e precisa estar ativo e dentro da validade. |
+| RN-016 | Uma reserva pode ser paga com várias formas de pagamento combinadas. |
+| RN-017 | Cada reserva pode ter no máximo uma avaliação da hospedagem (feita pelo cliente) e uma avaliação do cliente (feita pelo proprietário), apenas após a hospedagem concluída. |
+| RN-018 | As notas das avaliações vão de 1 a 5. |
 
 
 ## User Stories
