@@ -1,5 +1,5 @@
 # PROJETO DE SOFTWARE
-ola teste talita
+
 ## *Stakeholders*
 |NOME|CARGO|E-MAIL|
 |:---|:---|:---|
@@ -275,6 +275,42 @@ Os requisitos RNF-001 a RNF-004 foram elicitados no Milestone 1. Os requisitos R
 | RNF-008 | Normalização do banco de dados | O banco de dados deve seguir a 3ª Forma Normal. | Modelagem do BD |
 
 
+## Rastreabilidade com as versões anteriores
+
+Os requisitos atuais consolidam duas versões anteriores: a lista RF01–RF10, registrada nas issues do GitLab, e a lista RF01–RF18, do documento do banco de dados. A tabela a seguir indica onde cada requisito antigo está contemplado.
+
+| VERSÃO ANTERIOR | REQUISITO ANTIGO | REQUISITO ATUAL |
+|:---|:---|:---|
+| GitLab | RF01 – Cadastro e manutenção de usuários | RF-001 |
+| GitLab | RF02 – Autenticação | RF-002 |
+| GitLab | RF03 – Cadastro e manutenção de acomodações | RF-003 |
+| GitLab | RF04 – Consulta de acomodações | RF-004 |
+| GitLab | RF05 – Solicitação de reserva | RF-005 |
+| GitLab | RF06 – Ciclo da reserva | RF-006 |
+| GitLab | RF07 – Reservas do proprietário | RF-007 |
+| GitLab | RF08 – Reservas do cliente | RF-008 |
+| GitLab | RF09 – Cancelamento de reservas | RF-009 |
+| GitLab | RF10 – Avaliações | RF-010 |
+| Banco de dados | RF01 – Cadastrar usuário | RF-001 |
+| Banco de dados | RF02 – Autenticar (e-mail/senha ou Google) | RF-002 |
+| Banco de dados | RF03 – Recuperar senha | RF-002 |
+| Banco de dados | RF04 – Cadastrar e alterar endereço | RF-001 (usuário), RF-003 (hospedagem) |
+| Banco de dados | RF05 – Cadastrar hospedagem (fotos ordenadas e comodidades) | RF-003 |
+| Banco de dados | RF06 – Definir preços por período | RF-003 |
+| Banco de dados | RF07 – Publicar hospedagem | RF-003 |
+| Banco de dados | RF08 – Gerenciar cupons (ativar/desativar) | RF-013 |
+| Banco de dados | RF09 – Registrar preferências do cliente | RF-012 |
+| Banco de dados | RF10 – Consultar e buscar hospedagens | RF-004 |
+| Banco de dados | RF11 – Registrar reserva | RF-005 |
+| Banco de dados | RF12 – Aplicar cupom | RF-005 |
+| Banco de dados | RF13 – Registrar pagamento combinado | RF-011 |
+| Banco de dados | RF14 – Registrar avaliação | RF-010 |
+| Banco de dados | RF15 – Consultar reservas realizadas | RF-007, RF-008 |
+| Banco de dados | RF16 – Gerar relatórios | RF-014 |
+| Banco de dados | RF17 – Alterar dados cadastrais | RF-001 |
+| Banco de dados | RF18 – Excluir registros | Não contemplado (a definir pela equipe) |
+
+
 ## Regras de Negócio
 
 | IDENTIFICADOR | REGRA |
@@ -311,6 +347,19 @@ As 25 histórias de usuário (US-001 a US-025) estão registradas como issues no
 | US-019 a US-023, US-025 | Minhas reservas, cancelamento, avaliações e registro de alterações | Ana Claudia Moura | RF-008, RF-009, RF-010, RNF-004 |
 
 [INSERIR O TEXTO DE CADA HISTÓRIA, NO FORMATO "Como [perfil], quero [ação], para [benefício]".]
+
+
+## Pendências de consistência com o banco de dados
+
+Os itens a seguir foram identificados ao comparar os requisitos com o [Dicionário de Dados](#dicionário-de-dados) e devem ser resolvidos na próxima revisão do banco:
+
+| # | PENDÊNCIA | REQUISITOS AFETADOS |
+|:---|:---|:---|
+| 1 | A tabela `RESERVA` não tem campo de situação (status), necessário para controlar o ciclo e o cancelamento da reserva (issue #73). | RF-006, RF-007, RF-008, RF-009 |
+| 2 | Não há tabela de log para registrar as alterações relevantes com data, hora e usuário responsável. | RNF-004 |
+| 3 | O campo `USUA_DS_TIPO` guarda um único perfil, mas a regra permite que o mesmo usuário seja cliente e proprietário. | RF-001, RN-002 |
+| 4 | O perfil de administrador não está previsto no banco (`USUA_DS_TIPO` aceita apenas cliente ou proprietário). | RF-013, RF-014, RNF-002 |
+| 5 | Não há tabela ou campo para bloqueio de datas: a disponibilidade depende apenas das reservas e dos preços por período, embora os casos de uso UC-02 e UC-05 prevejam períodos bloqueados. | RF-003, RF-005 |
 
 
 # Prototipagem
