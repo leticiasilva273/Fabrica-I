@@ -26,8 +26,10 @@
   * [MINIMUNDO](#minimundo)
   * [REQUISITOS FUNCIONAIS](#requisitos-funcionais)
   * [REQUISITOS NÃO FUNCIONAIS](#requisitos-não-funcionais)
+  * [RASTREABILIDADE COM AS VERSÕES ANTERIORES](#rastreabilidade-com-as-versões-anteriores)
   * [REGRAS DE NEGÓCIO](#regras-de-negócio)
   * [USER STORIES](#user-stories)
+  * [PENDÊNCIAS DE CONSISTÊNCIA COM O BANCO DE DADOS](#pendências-de-consistência-com-o-banco-de-dados)
 * [PROTOTIPAGEM](#prototipagem)
 * [MODELO LÓGICO DO BANCO DE DADOS](#modelo-lógico-do-banco-de-dados)
   * [DICIONÁRIO DE DADOS](#dicionário-de-dados)
@@ -243,9 +245,9 @@ Os requisitos RF-001 a RF-010 foram elicitados no Milestone 1, por entrevista co
 
 | IDENTIFICADOR | NOME | DESCRIÇÃO | PRIORIDADE | ORIGEM |
 | :--- | :--- | :--- | :--- | :--- |
-| **RF-001** | Cadastro e manutenção de usuários | O sistema deve permitir o cadastro de usuário com e-mail e senha ou conta Google, com perfil de cliente e/ou de proprietário, e a alteração dos dados cadastrais: nome completo, CPF (ou CNPJ, para proprietário), data de nascimento (cliente), celular e endereço. | Essencial | Entrevista (#4) |
+| **RF-001** | Cadastro e manutenção de usuários | O sistema deve permitir o cadastro de usuário com e-mail e senha ou conta Google, com perfil de cliente e/ou de proprietário, a exclusão da conta e a alteração dos dados cadastrais: nome completo, CPF (ou CNPJ, para proprietário), data de nascimento (cliente), celular e endereço. | Essencial | Entrevista (#4) |
 | **RF-002** | Autenticação de usuários | O sistema deve permitir o acesso com e-mail e senha ou com conta Google, e a recuperação de senha por um código de 5 caracteres enviado ao e-mail, com prazo de validade e uso único. | Essencial | Entrevista (#6) |
-| **RF-003** | Cadastro e manutenção de acomodações | O sistema deve permitir que o proprietário cadastre e altere hospedagens (dados do imóvel, endereço, regras, horários, valores, fotos ordenadas e comodidades), defina preços por período e publique a hospedagem, que fica como rascunho até ser publicada. | Essencial | Entrevista (#11) |
+| **RF-003** | Cadastro e manutenção de acomodações | O sistema deve permitir que o proprietário cadastre, altere e exclua hospedagens (dados do imóvel, endereço, regras, horários, valores, fotos ordenadas e comodidades), defina preços por período e publique a hospedagem, que fica como rascunho até ser publicada. | Essencial | Entrevista (#11) |
 | **RF-004** | Consulta de acomodações | O sistema deve permitir que qualquer pessoa pesquise hospedagens publicadas por cidade, período e número de hóspedes, com filtros de preço, avaliação, tipo e comodidades, e consulte os detalhes de cada uma (fotos, descrição, comodidades, regras, preços e avaliações). | Essencial | Entrevista (#7) |
 | **RF-005** | Solicitação de reserva | O sistema deve permitir que o cliente solicite uma reserva informando check-in, check-out e número de hóspedes, verificando a disponibilidade do período, calculando o valor total conforme o preço por noite de cada período e aplicando cupom de desconto ativo e válido. | Essencial | Entrevista (#15) |
 | **RF-006** | Ciclo da reserva | O sistema deve controlar a situação da reserva (solicitada, confirmada, concluída e cancelada) e permitir apenas as transições válidas entre situações. | Essencial | Entrevista (#18) |
@@ -308,7 +310,7 @@ Os requisitos atuais consolidam duas versões anteriores: a lista RF01–RF10, r
 | Banco de dados | RF15 – Consultar reservas realizadas | RF-007, RF-008 |
 | Banco de dados | RF16 – Gerar relatórios | RF-014 |
 | Banco de dados | RF17 – Alterar dados cadastrais | RF-001 |
-| Banco de dados | RF18 – Excluir registros | Não contemplado (a definir pela equipe) |
+| Banco de dados | RF18 – Excluir registros | RF-001, RF-003 |
 
 
 ## Regras de Negócio
@@ -355,7 +357,7 @@ Os itens a seguir foram identificados ao comparar os requisitos com o [Dicionár
 
 | # | PENDÊNCIA | REQUISITOS AFETADOS |
 |:---|:---|:---|
-| 1 | A tabela `RESERVA` não tem campo de situação (status), necessário para controlar o ciclo e o cancelamento da reserva (issue #73). | RF-006, RF-007, RF-008, RF-009 |
+| 1 | A tabela `RESERVA` não tem campo de situação (status), necessário para controlar o ciclo e o cancelamento da reserva ([issue #73](https://gitlab.fslab.dev/fabrica-de-software-i-2026/projeto5/-/issues/73)). | RF-006, RF-007, RF-008, RF-009 |
 | 2 | Não há tabela de log para registrar as alterações relevantes com data, hora e usuário responsável. | RNF-004 |
 | 3 | O campo `USUA_DS_TIPO` guarda um único perfil, mas a regra permite que o mesmo usuário seja cliente e proprietário. | RF-001, RN-002 |
 | 4 | O perfil de administrador não está previsto no banco (`USUA_DS_TIPO` aceita apenas cliente ou proprietário). | RF-013, RF-014, RNF-002 |
