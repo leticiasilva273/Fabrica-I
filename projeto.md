@@ -369,7 +369,7 @@ Os itens a seguir foram identificados ao comparar os requisitos com o [Dicionár
 
 | # | PENDÊNCIA | REQUISITOS AFETADOS |
 |:---|:---|:---|
-| 1 | A tabela `RESERVA` não tem campo de situação (status), necessário para controlar o ciclo e o cancelamento da reserva ([issue #73](https://gitlab.fslab.dev/fabrica-de-software-i-2026/projeto5/-/issues/73)). | RF-006, RF-007, RF-008, RF-009 |
+| 1 | ~~A tabela `RESERVA` não tem campo de situação (status), necessário para controlar o ciclo e o cancelamento da reserva.~~ **Resolvida:** campo `RESE_DS_STATUS` adicionado ([issue #73](https://gitlab.fslab.dev/fabrica-de-software-i-2026/projeto5/-/issues/73)). | RF-006, RF-007, RF-008, RF-009 |
 | 2 | Não há tabela de log para registrar as alterações relevantes com data, hora e usuário responsável. | RNF-004 |
 | 3 | O campo `USUA_DS_TIPO` guarda um único perfil, mas a regra permite que o mesmo usuário seja cliente e proprietário. | RF-001, RN-002 |
 | 4 | O perfil de administrador não está previsto no banco (`USUA_DS_TIPO` aceita apenas cliente ou proprietário). | RF-013, RF-014, RNF-002 |
@@ -398,7 +398,11 @@ O banco de dados (MySQL) é composto por 20 tabelas, organizadas em quatro grupo
 
 ![Modelo lógico do banco de dados](img/modelo_logico_bd.png)
 
-Script de criação do banco: [GESTAO_HOSPEDAGEM.sql](arquivos/GESTAO_HOSPEDAGEM.sql)
+Script de criação do banco: [GESTAO_HOSPEDAGEM.sql](banco_de_dados/GESTAO_HOSPEDAGEM.sql)
+
+Dicionário de dados completo (tipo, nulo, padrão e chaves de cada campo): [dicionario_de_dados.md](banco_de_dados/dicionario_de_dados.md)
+
+A tabela `RESERVA` tem o campo `RESE_DS_STATUS` (situação da reserva), com valor padrão `'PENDENTE'` e valores restritos a `PENDENTE`, `CONFIRMADA`, `CANCELADA` e `CONCLUIDA` ([issue #73](https://gitlab.fslab.dev/fabrica-de-software-i-2026/projeto5/-/issues/73)).
 
 Modelo editável: [arquivos/](arquivos/)
 
@@ -604,6 +608,7 @@ Reservas feitas pelos clientes nas hospedagens.
 | `RESE_DS_CODIGO` | VARCHAR(15) | UNIQUE | NULL | Código da reserva exibido ao cliente (ex.: #HERA-02541) |
 | `RESE_VL_TOTAL` | DECIMAL(10,2) | Simples | NOT NULL | Valor total da reserva |
 | `RESE_VL_DESCONTO` | DECIMAL(10,2) | Simples | NOT NULL, DEFAULT 0.00 | Valor do desconto aplicado |
+| `RESE_DS_STATUS` | VARCHAR(20) | Simples | NOT NULL, DEFAULT 'PENDENTE', CHECK | Situação da reserva: PENDENTE (solicitada, aguardando pagamento), CONFIRMADA (pagamento registrado), CANCELADA (cancelada antes do check-in) ou CONCLUIDA (estadia encerrada). Ver o [dicionário de dados](banco_de_dados/dicionario_de_dados.md#situação-da-reserva-rese_ds_status) |
 
 ### PAGAMENTO
 
