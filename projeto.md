@@ -398,7 +398,7 @@ O banco de dados (MySQL) é composto por 20 tabelas, organizadas em quatro grupo
 
 ![Modelo lógico do banco de dados](img/modelo_logico_bd.png)
 
-Script de criação do banco: [GESTAO_HOSPEDAGEM.sql](banco_de_dados/GESTAO_HOSPEDAGEM.sql)
+Script de criação do banco: [GESTAO_HOSPEDAGEM.sql](arquivos/GESTAO_HOSPEDAGEM.sql)
 
 Dicionário de dados completo (tipo, nulo, padrão e chaves de cada campo): [dicionario_de_dados.md](banco_de_dados/dicionario_de_dados.md)
 
