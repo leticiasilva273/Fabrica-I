@@ -4,7 +4,7 @@ Milestone 2 · Protótipo de interface · Fábrica de Software I
 
 Protótipo da plataforma Hospedagem Familiar. Wireframes de média fidelidade das telas do cliente (hóspede) autenticado, mais os estados de exceção que ele pode encontrar, em 1024x640 (desktop). Escala de cinza com um acento azul; a ação principal de cada tela é o botão azul preenchido. A navegação fica no topo: Painel, Hospedagens, Reservas, Avaliações e Minha conta. As telas do proprietário estão no documento separado Wireframes do proprietário (T-PRO).
 
-## Tabela de telas
+## Tabela de telas kkkkkkkkk
 
 A coluna "Páginas" indica a página do PDF do protótipo em que a tela aparece. O caso de uso segue o nome usado nos diagramas corrigidos.
 
