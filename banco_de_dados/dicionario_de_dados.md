@@ -1,7 +1,7 @@
 # Dicionário de Dados — HERA (Gestão de Hospedagem)
 
 Banco: `GESTAO_HOSPEDAGEM` (MySQL 9.7, InnoDB, `utf8mb4`).
-Script de criação: [GESTAO_HOSPEDAGEM.sql](GESTAO_HOSPEDAGEM.sql)
+Script de criação: [GESTAO_HOSPEDAGEM.sql](../arquivos/GESTAO_HOSPEDAGEM.sql)
 
 **Legenda**
 
