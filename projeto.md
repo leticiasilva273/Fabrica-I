@@ -339,16 +339,570 @@ Os requisitos atuais consolidam duas versões anteriores: a lista RF01–RF10, r
 
 ## User Stories
 
-As 25 histórias de usuário (US-001 a US-025) estão registradas como issues no GitLab, no Milestone 1, agrupadas assim:
+As 25 histórias de usuário foram elaboradas no Milestone 1 e estão registradas como issues no GitLab (US-001 a US-025). Cada história segue o formato "Como [perfil], quero [ação], para [benefício]" e tem critérios de aceitação no formato Dado / Quando / Então.
 
-| HISTÓRIAS | TEMA | RESPONSÁVEL | REQUISITOS |
+### Resumo das histórias
+
+| ID | HISTÓRIA | PERFIL | REQUISITOS |
 |:---|:---|:---|:---|
-| US-001 a US-005, US-011 a US-013, US-024 | Cadastro, login, perfil e busca de acomodações | Leticia Almeida | RF-001, RF-002, RF-004 |
-| US-006 a US-010, US-014, US-015, US-018 | Gestão de acomodações e reservas do proprietário | Thalita Peronico | RF-003, RF-005, RF-007 |
-| US-016, US-017 | Acompanhamento e atualização da situação da reserva | Ana Clara Funari | RF-006 |
-| US-019 a US-023, US-025 | Minhas reservas, cancelamento, avaliações e registro de alterações | Ana Claudia Moura | RF-008, RF-009, RF-010, RNF-004 |
+| US-001 | Cadastrar cliente | cliente | RF-001 |
+| US-002 | Cadastrar proprietário | proprietário | RF-001 |
+| US-003 | Atualizar dados cadastrais | usuário cadastrado | RF-001 |
+| US-004 | Entrar na plataforma | cliente ou proprietário cadastrado | RF-002 |
+| US-005 | Acessar funcionalidades conforme o perfil | usuário autenticado | RF-002, RNF-002 |
+| US-006 | Cadastrar acomodação | proprietário | RF-003 |
+| US-007 | Atualizar acomodação | proprietário | RF-003 |
+| US-008 | Adicionar e atualizar fotos | proprietário | RF-003 |
+| US-009 | Definir preço por período | proprietário | RF-003 |
+| US-010 | Informar disponibilidade da acomodação | proprietário | RF-003, RNF-003 |
+| US-011 | Pesquisar acomodações | cliente | RF-004 |
+| US-012 | Filtrar acomodações | cliente | RF-004 |
+| US-013 | Visualizar detalhes da acomodação | cliente | RF-004 |
+| US-014 | Solicitar reserva | cliente | RF-005 |
+| US-015 | Impedir reservas conflitantes | cliente | RF-005, RNF-003 |
+| US-016 | Acompanhar situação da reserva | cliente | RF-006, RF-008 |
+| US-017 | Atualizar situação da reserva | proprietário | RF-006, RF-007 |
+| US-018 | Consultar reservas das acomodações | proprietário | RF-007 |
+| US-019 | Consultar minhas reservas | cliente | RF-008 |
+| US-020 | Cancelar reserva | cliente | RF-009 |
+| US-021 | Avaliar hospedagem | cliente | RF-010 |
+| US-022 | Consultar avaliações | cliente | RF-004, RF-010 |
+| US-023 | Avaliar hóspede | proprietário | RF-010 |
+| US-024 | Restringir acesso aos dados pessoais | usuário da plataforma | RNF-001, RNF-002 |
+| US-025 | Registrar alterações | proprietário | RNF-004 |
 
-[INSERIR O TEXTO DE CADA HISTÓRIA, NO FORMATO "Como [perfil], quero [ação], para [benefício]".]
+### US-001 — Cadastrar cliente
+
+**Como** cliente, **quero** criar uma conta na plataforma, **para** utilizar as funcionalidades disponíveis para clientes.
+
+**Requisitos relacionados:** RF-001
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que estou na tela de cadastro
+  Quando informo os dados obrigatórios válidos
+  Então minha conta de cliente é criada
+  E posso acessar as funcionalidades destinadas aos clientes
+
+Cenário 2
+  Dado que estou preenchendo o cadastro
+  Quando deixo um campo obrigatório sem preenchimento
+  Então o sistema informa o campo que precisa ser preenchido
+  E não conclui o cadastro
+```
+
+### US-002 — Cadastrar proprietário
+
+**Como** proprietário, **quero** criar uma conta na plataforma, **para** cadastrar e administrar minhas acomodações.
+
+**Requisitos relacionados:** RF-001
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que estou na tela de cadastro
+  Quando informo os dados obrigatórios válidos e seleciono o perfil de proprietário
+  Então minha conta de proprietário é criada
+  E posso acessar as funcionalidades destinadas ao proprietário
+
+Cenário 2
+  Dado que estou preenchendo o cadastro
+  Quando informo dados obrigatórios inválidos
+  Então o sistema informa os dados que precisam ser corrigidos
+  E não conclui o cadastro
+```
+
+### US-003 — Atualizar dados cadastrais
+
+**Como** usuário cadastrado, **quero** atualizar meus dados cadastrais, **para** manter minhas informações atualizadas.
+
+**Requisitos relacionados:** RF-001
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que estou autenticado
+  Quando altero meus dados cadastrais com informações válidas
+  Então os novos dados são salvos
+  E passam a ser apresentados no meu cadastro
+
+Cenário 2
+  Dado que estou editando meus dados
+  Quando informo dados inválidos
+  Então o sistema informa o problema
+  E não salva a alteração
+```
+
+### US-004 — Entrar na plataforma
+
+**Como** cliente ou proprietário cadastrado, **quero** entrar na minha conta, **para** acessar as funcionalidades disponíveis para meu perfil.
+
+**Requisitos relacionados:** RF-002
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que possuo uma conta cadastrada
+  Quando informo minhas credenciais válidas
+  Então o sistema permite meu acesso
+  E apresenta as funcionalidades correspondentes ao meu perfil
+
+Cenário 2
+  Dado que estou na tela de login
+  Quando informo credenciais inválidas
+  Então o sistema informa que não foi possível realizar a autenticação
+  E não permite o acesso à conta
+```
+
+### US-005 — Acessar funcionalidades conforme o perfil
+
+**Como** usuário autenticado, **quero** acessar somente as funcionalidades permitidas para meu perfil, **para** utilizar o sistema de acordo com minhas permissões.
+
+**Requisitos relacionados:** RF-002, RNF-002
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que estou autenticado como proprietário
+  Quando acesso a plataforma
+  Então o sistema disponibiliza as funcionalidades destinadas ao proprietário
+
+Cenário 2
+  Dado que estou autenticado como cliente
+  Quando tento acessar uma funcionalidade exclusiva de proprietário
+  Então o sistema impede o acesso
+```
+
+### US-006 — Cadastrar acomodação
+
+**Como** proprietário, **quero** cadastrar uma acomodação, **para** disponibilizá-la para hospedagem.
+
+**Requisitos relacionados:** RF-003
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que estou autenticado como proprietário
+  Quando cadastro uma acomodação com as informações obrigatórias válidas
+  Então a acomodação é registrada
+  E fica disponível conforme as regras definidas
+
+Cenário 2
+  Dado que estou cadastrando uma acomodação
+  Quando deixo uma informação obrigatória sem preenchimento
+  Então o sistema informa o campo que precisa ser preenchido
+  E não conclui o cadastro
+```
+
+### US-007 — Atualizar acomodação
+
+**Como** proprietário, **quero** alterar as informações da minha acomodação, **para** mantê-las atualizadas para os clientes.
+
+**Requisitos relacionados:** RF-003
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que possuo uma acomodação cadastrada
+  Quando altero suas informações com dados válidos
+  Então o sistema salva as alterações
+  E apresenta as informações atualizadas
+
+Cenário 2
+  Dado que estou alterando uma acomodação
+  Quando informo dados inválidos
+  Então o sistema informa o problema
+  E não salva a alteração
+```
+
+### US-008 — Adicionar e atualizar fotos
+
+**Como** proprietário, **quero** adicionar e atualizar fotos da minha acomodação, **para** apresentar o espaço aos clientes.
+
+**Requisitos relacionados:** RF-003
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que possuo uma acomodação cadastrada
+  Quando adiciono uma imagem aceita pelo sistema
+  Então a imagem fica vinculada à acomodação
+  E pode ser visualizada pelos clientes
+
+Cenário 2
+  Dado que estou adicionando uma imagem
+  Quando o arquivo não atende aos critérios aceitos pelo sistema
+  Então a imagem não é adicionada
+  E o sistema informa o problema
+```
+
+### US-009 — Definir preço por período
+
+**Como** proprietário, **quero** cadastrar e atualizar preços para diferentes períodos, **para** disponibilizar aos clientes os valores das hospedagens.
+
+**Requisitos relacionados:** RF-003
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que possuo uma acomodação cadastrada
+  Quando cadastro um preço para um período válido
+  Então o preço fica associado à acomodação e ao período informado
+
+Cenário 2
+  Dado que estou cadastrando ou alterando um preço
+  Quando informo um valor ou período inválido
+  Então o sistema informa o problema
+  E não salva a informação incorreta
+```
+
+### US-010 — Informar disponibilidade da acomodação
+
+**Como** proprietário, **quero** informar períodos disponíveis e indisponíveis da minha acomodação, **para** controlar quando ela poderá receber reservas.
+
+**Requisitos relacionados:** RF-003, RNF-003
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que possuo uma acomodação cadastrada
+  Quando informo um período como indisponível
+  Então o período passa a ser identificado como indisponível
+  E não pode ser utilizado para uma nova reserva
+
+Cenário 2
+  Dado que tento bloquear um período que possui uma situação conflitante
+  Quando confirmo o bloqueio
+  Então o sistema informa o conflito
+  E não realiza a alteração sem atender à regra definida
+```
+
+### US-011 — Pesquisar acomodações
+
+**Como** cliente, **quero** pesquisar acomodações considerando o período desejado, **para** encontrar opções disponíveis para minha hospedagem.
+
+**Requisitos relacionados:** RF-004
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que existem acomodações disponíveis para o período informado
+  Quando realizo a pesquisa
+  Então o sistema apresenta as acomodações disponíveis
+
+Cenário 2
+  Dado que nenhuma acomodação está disponível no período informado
+  Quando realizo a pesquisa
+  Então o sistema informa que não foram encontradas acomodações disponíveis
+```
+
+### US-012 — Filtrar acomodações
+
+**Como** cliente, **quero** filtrar as acomodações utilizando características disponíveis, **para** encontrar opções compatíveis com minhas necessidades.
+
+**Requisitos relacionados:** RF-004
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que existem várias acomodações disponíveis
+  Quando aplico um filtro disponível no sistema
+  Então o sistema apresenta somente as acomodações compatíveis
+
+Cenário 2
+  Dado que nenhuma acomodação atende ao filtro
+  Quando aplico o filtro
+  Então o sistema informa que nenhuma acomodação foi encontrada
+  E disponibiliza uma opção para remover o filtro
+```
+
+### US-013 — Visualizar detalhes da acomodação
+
+**Como** cliente, **quero** visualizar os detalhes de uma acomodação, **para** conhecer o local antes de solicitar uma reserva.
+
+**Requisitos relacionados:** RF-004
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que uma acomodação está disponível para consulta
+  Quando acesso seus detalhes
+  Então visualizo suas informações
+  E consigo consultar características, regras, fotos, preços e disponibilidade
+
+Cenário 2
+  Dado que uma acomodação não está disponível para novas reservas
+  Quando acesso seus detalhes
+  Então o sistema informa que ela não pode ser reservada
+```
+
+### US-014 — Solicitar reserva
+
+**Como** cliente, **quero** solicitar uma reserva informando o período desejado, **para** reservar uma acomodação disponível.
+
+**Requisitos relacionados:** RF-005
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que uma acomodação está disponível no período escolhido
+  Quando solicito a reserva
+  Então o sistema registra a solicitação
+  E associa a reserva ao cliente, à acomodação e ao período informado
+
+Cenário 2
+  Dado que o período escolhido não está disponível
+  Quando tento solicitar a reserva
+  Então o sistema recusa a solicitação
+  E informa que o período não está disponível
+```
+
+### US-015 — Impedir reservas conflitantes
+
+**Como** cliente, **quero** que o sistema impeça reservas conflitantes, **para** evitar que uma acomodação seja reservada por mais de um cliente no mesmo período.
+
+**Requisitos relacionados:** RF-005, RNF-003
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que uma acomodação possui uma reserva para determinado período
+  Quando solicito uma nova reserva para um período conflitante
+  Então o sistema impede o registro
+  E informa que a acomodação está indisponível
+
+Cenário 2
+  Dado que o período solicitado não possui conflito
+  Quando solicito a reserva
+  Então a solicitação pode prosseguir conforme o fluxo definido
+```
+
+### US-016 — Acompanhar situação da reserva
+
+**Como** cliente, **quero** acompanhar a situação da minha reserva, **para** saber em qual etapa está minha hospedagem.
+
+**Requisitos relacionados:** RF-006, RF-008
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que possuo uma reserva registrada
+  Quando consulto seus dados
+  Então visualizo a situação atual da reserva
+
+Cenário 2
+  Dado que a reserva ainda não avançou para a próxima etapa
+  Quando consulto a reserva
+  Então o sistema apresenta somente a situação atual
+```
+
+### US-017 — Atualizar situação da reserva
+
+**Como** proprietário, **quero** atualizar a situação da reserva conforme as etapas permitidas, **para** manter o processo de hospedagem atualizado.
+
+**Requisitos relacionados:** RF-006, RF-007
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que existe uma reserva em uma etapa que permite determinada alteração
+  Quando realizo a ação correspondente
+  Então o sistema atualiza a situação conforme o fluxo definido
+
+Cenário 2
+  Dado que tento realizar uma alteração não permitida para a situação atual
+  Quando solicito a alteração
+  Então o sistema recusa a operação
+  E mantém a situação anterior
+```
+
+### US-018 — Consultar reservas das acomodações
+
+**Como** proprietário, **quero** consultar as reservas das minhas acomodações, **para** acompanhar as hospedagens agendadas.
+
+**Requisitos relacionados:** RF-007
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que existem reservas relacionadas às minhas acomodações
+  Quando acesso a consulta de reservas
+  Então visualizo as reservas correspondentes
+
+Cenário 2
+  Dado que não existem reservas relacionadas às minhas acomodações
+  Quando acesso a consulta
+  Então o sistema informa que não existem reservas registradas
+```
+
+### US-019 — Consultar minhas reservas
+
+**Como** cliente, **quero** consultar minhas reservas, **para** acompanhar minhas hospedagens e suas situações.
+
+**Requisitos relacionados:** RF-008
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que possuo reservas registradas
+  Quando acesso minhas reservas
+  Então visualizo as reservas vinculadas à minha conta
+  E consigo identificar a situação de cada uma
+
+Cenário 2
+  Dado que não possuo reservas
+  Quando acesso a consulta
+  Então o sistema informa que não existem reservas registradas
+```
+
+### US-020 — Cancelar reserva
+
+**Como** cliente, **quero** cancelar uma reserva quando permitido, **para** desistir de uma hospedagem que não poderei realizar.
+
+**Requisitos relacionados:** RF-009
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que possuo uma reserva que pode ser cancelada conforme as regras definidas
+  Quando solicito o cancelamento
+  Então a reserva passa para a situação correspondente ao cancelamento
+  E o período fica disponível conforme as regras do sistema
+
+Cenário 2
+  Dado que a reserva não pode ser cancelada na situação atual
+  Quando solicito o cancelamento
+  Então o sistema recusa a operação
+  E informa o motivo
+```
+
+### US-021 — Avaliar hospedagem
+
+**Como** cliente, **quero** avaliar uma hospedagem realizada, **para** registrar minha experiência.
+
+**Requisitos relacionados:** RF-010
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que minha hospedagem foi concluída
+  Quando estou autorizado a realizar uma avaliação
+  E registro minha avaliação
+  Então ela fica associada à hospedagem correspondente
+
+Cenário 2
+  Dado que não estou autorizado a avaliar a hospedagem
+  Quando tento registrar uma avaliação
+  Então o sistema impede o registro
+  E informa o motivo
+```
+
+### US-022 — Consultar avaliações
+
+**Como** cliente, **quero** consultar as avaliações de uma acomodação, **para** conhecer a experiência de outros hóspedes.
+
+**Requisitos relacionados:** RF-004, RF-010
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que existem avaliações disponíveis para uma acomodação
+  Quando acesso suas avaliações
+  Então visualizo as avaliações que tenho permissão para consultar
+
+Cenário 2
+  Dado que uma acomodação não possui avaliações
+  Quando acesso sua área de avaliações
+  Então o sistema informa que ainda não existem avaliações disponíveis
+```
+
+### US-023 — Avaliar hóspede
+
+**Como** proprietário, **quero** avaliar um hóspede após uma hospedagem, **para** registrar minha experiência como anfitrião.
+
+**Requisitos relacionados:** RF-010
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que a hospedagem foi concluída
+  E o proprietário está autorizado a avaliar o hóspede
+  Quando registro a avaliação
+  Então ela fica associada ao hóspede e à hospedagem correspondente
+
+Cenário 2
+  Dado que o proprietário não está autorizado a realizar a avaliação
+  Quando tenta registrar uma avaliação
+  Então o sistema impede o registro
+```
+
+### US-024 — Restringir acesso aos dados pessoais
+
+**Como** usuário da plataforma, **quero** que meus dados pessoais sejam acessíveis somente por usuários autorizados, **para** preservar a privacidade das minhas informações.
+
+**Requisitos relacionados:** RNF-001, RNF-002
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que estou autenticado e possuo permissão para acessar determinada informação
+  Quando solicito essa informação
+  Então o sistema permite o acesso conforme minha autorização
+
+Cenário 2
+  Dado que não possuo permissão para acessar determinada informação
+  Quando tento acessá-la
+  Então o sistema nega o acesso
+  E não apresenta os dados protegidos
+```
+
+### US-025 — Registrar alterações
+
+**Como** proprietário, **quero** que as alterações relevantes realizadas nas informações das minhas acomodações e reservas sejam registradas, **para** identificar o que foi alterado, por quem e quando.
+
+**Requisitos relacionados:** RNF-004
+
+**Critérios de aceitação:**
+
+```gherkin
+Cenário 1
+  Dado que existe uma informação com rastreabilidade definida
+  Quando realizo uma alteração nessa informação
+  Então o sistema registra a alteração realizada
+  E identifica o usuário responsável
+  E registra a data e hora da operação
+
+Cenário 2
+  Dado que realizo uma alteração em uma informação que possui rastreabilidade definida
+  Quando consulto o registro da alteração
+  Então consigo identificar o usuário responsável
+  E a data e hora da operação
+```
 
 
 ## Pendências de consistência com o banco de dados
@@ -360,8 +914,8 @@ Os itens a seguir foram identificados ao comparar os requisitos com o [Dicionár
 | 1 | A tabela `RESERVA` não tem campo de situação (status), necessário para controlar o ciclo e o cancelamento da reserva ([issue #73](https://gitlab.fslab.dev/fabrica-de-software-i-2026/projeto5/-/issues/73)). | RF-006, RF-007, RF-008, RF-009 |
 | 2 | Não há tabela de log para registrar as alterações relevantes com data, hora e usuário responsável. | RNF-004 |
 | 3 | O campo `USUA_DS_TIPO` guarda um único perfil, mas a regra permite que o mesmo usuário seja cliente e proprietário. | RF-001, RN-002 |
-| 4 | O perfil de administrador não está previsto no banco (`USUA_DS_TIPO` aceita apenas cliente ou proprietário). | RF-013, RF-014, RNF-002 |
-| 5 | Não há tabela ou campo para bloqueio de datas: a disponibilidade depende apenas das reservas e dos preços por período, embora os casos de uso UC-02 e UC-05 prevejam períodos bloqueados. | RF-003, RF-005 |
+| 4 | O perfil de administrador não está previsto no banco (`USUA_DS_TIPO` aceita apenas cliente ou proprietário). Perfil fora do escopo desta versão. | RF-013, RF-014, RNF-002 |
+| 5 | Resolvida: o grupo decidiu não implementar o bloqueio manual de datas; a disponibilidade depende das reservas. | RF-003, RF-005 |
 
 
 # Prototipagem
@@ -679,10 +1233,18 @@ Avaliação do cliente feita pelo proprietário. Cada reserva recebe no máximo 
 
 ![Diagrama de classes — Reservas e Avaliação](img/classes_reservas_avaliacao.png)
 
-> Os valores do enum `SituacaoReserva` ainda serão validados com a cliente.
+> Valores do enum `SituacaoReserva`: Solicitada, Confirmada, Concluída e Cancelada (RF-006).
 
 
 # Diagrama de Casos de Uso
+
+### Diagrama geral (versão final)
+
+![Diagrama de casos de uso do sistema HERA](img/diagrama_casos_de_uso.png)
+
+Arquivo editável: [img/diagrama_casos_de_uso.svg](img/diagrama_casos_de_uso.svg).
+
+Decisões do grupo no Milestone 3: o perfil Administrador (RF-013 e RF-014, requisitos condicionais) ficou fora do escopo desta versão; foi incluído o UC-10 – Avaliar Hóspede; o bloqueio manual de datas não será implementado.
 
 ### Gestão de Acomodações
 
@@ -706,17 +1268,18 @@ Avaliação do cliente feita pelo proprietário. Cada reserva recebe no máximo 
 |*Descrição/Objetivo:* Permite que o proprietário cadastre uma nova acomodação na plataforma.|
 |*Atores:* Proprietário|
 |*Pré-condições:* Proprietário autenticado no sistema.|
-|*Pós-condições:* Acomodação cadastrada e visível nas pesquisas.|
+|*Pós-condições:* Acomodação cadastrada como rascunho. Ela só aparece nas pesquisas depois de publicada pelo proprietário (RN-010).|
 |*FLUXO PRINCIPAL / BÁSICO:*|
 |1. Proprietário acessa a opção "Cadastrar acomodação".|
 |2. O sistema exibe o formulário com dados do imóvel, endereço, regras, preços e fotos.|
-|3. Proprietário preenche os dados e envia ao menos uma foto.|
+|3. Proprietário preenche os dados e adiciona as fotos (no mínimo 1 foto).|
 |4. Proprietário confirma o cadastro.|
 |5. O sistema valida se os dados obrigatórios estão completos.|
 |6. O sistema cria a acomodação e exibe mensagem de sucesso.|
+|7. Proprietário publica a acomodação, que passa a aparecer nas pesquisas.|
 |*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
 |*A1: Dados incompletos ou inválidos:*|
-|1. No passo 5, o sistema identifica campos obrigatórios ausentes ou inválidos.|
+|1. No passo 5, o sistema identifica campos obrigatórios ausentes ou inválidos, ou nenhuma foto.|
 |2. O sistema exibe a mensagem "dados inválidos", indicando os campos.|
 |3. Proprietário corrige os dados e o fluxo retorna ao passo 4.|
 
@@ -724,37 +1287,35 @@ Avaliação do cliente feita pelo proprietário. Cada reserva recebe no máximo 
 
 |UC-02 - Informar Disponibilidade|
 |:---|
-|*Descrição/Objetivo:* Permite que o proprietário defina os períodos disponíveis, bloqueados e os preços por período de uma acomodação.|
+|*Descrição/Objetivo:* Permite que o proprietário defina os preços por período de uma acomodação.|
 |*Atores:* Proprietário|
 |*Pré-condições:* Proprietário autenticado e com ao menos uma acomodação cadastrada.|
-|*Pós-condições:* Disponibilidade e preços da acomodação atualizados.|
+|*Pós-condições:* Preços por período da acomodação atualizados.|
 |*FLUXO PRINCIPAL / BÁSICO:*|
 |1. Proprietário seleciona uma de suas acomodações.|
-|2. O sistema exibe o calendário com os períodos livres, bloqueados e reservados.|
-|3. Proprietário seleciona um período e escolhe bloquear, desbloquear ou definir preço.|
+|2. O sistema exibe os períodos com preço definido e os períodos reservados.|
+|3. Proprietário seleciona um período e define o preço por noite.|
 |4. O sistema valida o período e salva a alteração.|
 |*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
-|*A1: Período com reserva ativa:*|
-|1. Se o período selecionado tiver reserva ativa, o sistema impede o bloqueio e informa o motivo.|
-|*A2: Data final anterior à inicial:*|
-|1. O sistema exibe alerta e solicita a correção do período.|
+|*A1: Data final anterior à inicial:*|
+|1. No passo 4, o sistema exibe alerta e solicita a correção do período.|
 
 ### UC-03 - Pesquisar Acomodações
 
 |UC-03 - Pesquisar Acomodações|
 |:---|
 |*Descrição/Objetivo:* Permite que o cliente encontre acomodações de acordo com seus critérios.|
-|*Atores:* Cliente|
+|*Atores:* Cliente, Visitante|
 |*Pré-condições:* Nenhuma.|
 |*Pós-condições:* Lista de acomodações compatíveis exibida.|
 |*FLUXO PRINCIPAL / BÁSICO:*|
-|1. Cliente informa cidade, datas de check-in e check-out e número de hóspedes.|
+|1. Cliente informa cidade, datas de check-in e check-out e número de hóspedes e, se quiser, aplica filtros de preço, avaliação, tipo e comodidades.|
 |2. O sistema busca as acomodações compatíveis e disponíveis no período.|
 |3. O sistema exibe a lista com foto, nome, preço e nota média.|
 |4. Cliente seleciona uma acomodação e o sistema exibe seus detalhes.|
 |*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
 |*A1: Nenhum resultado:*|
-|1. O sistema informa que não há acomodações para os critérios e sugere alterar a busca.|
+|1. No passo 2, o sistema informa que não há acomodações para os critérios e sugere alterar a busca.|
 
 ### UC-04 - Solicitar Reserva
 
@@ -763,34 +1324,38 @@ Avaliação do cliente feita pelo proprietário. Cada reserva recebe no máximo 
 |*Descrição/Objetivo:* Permite que o cliente reserve uma acomodação para um período.|
 |*Atores:* Cliente|
 |*Pré-condições:* Cliente autenticado e acomodação selecionada.|
-|*Pós-condições:* Reserva registrada e o período ocupado na acomodação.|
+|*Pós-condições:* Reserva registrada com situação "Solicitada" e o período ocupado na acomodação.|
 |*FLUXO PRINCIPAL / BÁSICO:*|
 |1. Cliente informa o período e o número de hóspedes e solicita a reserva.|
 |2. O sistema verifica a disponibilidade do período (inclui UC-05).|
 |3. O sistema calcula e exibe o valor total (diárias, taxa de limpeza e descontos).|
-|4. Cliente confirma a reserva.|
+|4. Cliente confirma a reserva e aceita o contrato da hospedagem.|
 |5. O sistema registra a reserva e exibe o código da reserva.|
+|6. Cliente realiza o pagamento, podendo combinar mais de uma forma de pagamento (RF-011).|
 |*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
 |*A1: Período indisponível:*|
 |1. No passo 2, o sistema retorna "indisponível" e solicita outro período.|
 |*A2: Hóspedes acima da capacidade:*|
-|1. O sistema informa a capacidade máxima e solicita a correção.|
+|1. No passo 1, o sistema informa a capacidade máxima e solicita a correção.|
 |*A3: Cupom de desconto:*|
 |1. No passo 3, cliente informa um cupom.|
 |2. Se o cupom estiver ativo e válido, o sistema aplica o desconto; caso contrário, informa que o cupom é inválido.|
+|*A4: Pagamento recusado:*|
+|1. No passo 6, o sistema informa a recusa e permite tentar outra forma de pagamento.|
 
 ### UC-05 - Verificar Disponibilidade
 
 |UC-05 - Verificar Disponibilidade|
 |:---|
 |*Descrição/Objetivo:* Verifica se a acomodação está livre no período solicitado. É incluído pelo UC-04.|
-|*Atores:* Sistema (incluído por Solicitar Reserva)|
+|*Atores:* Nenhum ator direto (incluído pelo UC-04)|
 |*Pré-condições:* Período e acomodação informados.|
 |*Pós-condições:* Resultado "disponível" ou "indisponível" retornado.|
 |*FLUXO PRINCIPAL / BÁSICO:*|
-|1. O sistema consulta os períodos bloqueados da acomodação.|
-|2. O sistema consulta as reservas ativas da acomodação.|
-|3. Se não houver sobreposição, retorna "disponível"; caso contrário, "indisponível".|
+|1. O sistema consulta as reservas ativas da acomodação.|
+|2. Se não houver sobreposição, retorna "disponível"; caso contrário, "indisponível".|
+|*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
+|Não há fluxos alternativos. O resultado "indisponível" é tratado no passo 2 do fluxo principal e devolvido ao UC-04 (fluxo A1).|
 
 ### UC-06 - Cancelar Reserva
 
@@ -808,7 +1373,7 @@ Avaliação do cliente feita pelo proprietário. Cada reserva recebe no máximo 
 |5. O sistema altera a situação para "Cancelada" e libera o período.|
 |*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
 |*A1: Reserva já concluída ou cancelada:*|
-|1. O sistema não exibe a opção de cancelamento.|
+|1. No passo 2, o sistema não exibe a opção de cancelamento.|
 
 ### UC-07 - Acompanhar Reservas
 
@@ -824,7 +1389,7 @@ Avaliação do cliente feita pelo proprietário. Cada reserva recebe no máximo 
 |3. Usuário seleciona uma reserva para ver os detalhes.|
 |*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
 |*A1: Nenhuma reserva:*|
-|1. O sistema informa que não há reservas.|
+|1. No passo 2, o sistema informa que não há reservas.|
 
 ### UC-08 - Atualizar Situação da Reserva
 
@@ -841,7 +1406,7 @@ Avaliação do cliente feita pelo proprietário. Cada reserva recebe no máximo 
 |4. O sistema salva a nova situação.|
 |*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
 |*A1: Transição inválida:*|
-|1. Se a transição não for permitida (ex.: reserva cancelada para concluída), o sistema informa e mantém a situação atual.|
+|1. No passo 3, se a transição não for permitida, o sistema informa e mantém a situação atual. (transições válidas: Solicitada → Confirmada, Confirmada → Concluída, Solicitada ou Confirmada → Cancelada)|
 
 ### UC-09 - Avaliar Hospedagem
 
@@ -858,9 +1423,28 @@ Avaliação do cliente feita pelo proprietário. Cada reserva recebe no máximo 
 |4. O sistema registra a avaliação.|
 |*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
 |*A1: Reserva já avaliada:*|
-|1. O sistema informa que a reserva já foi avaliada.|
+|1. No passo 1, o sistema informa que a reserva já foi avaliada.|
 |*A2: Nota fora do intervalo:*|
-|1. O sistema solicita notas entre 1 e 5.|
+|1. No passo 3, o sistema solicita notas entre 1 e 5.|
+
+### UC-10 - Avaliar Hóspede
+
+|UC-10 - Avaliar Hóspede|
+|:---|
+|*Descrição/Objetivo:* Permite que o proprietário avalie o cliente após a hospedagem concluída.|
+|*Atores:* Proprietário|
+|*Pré-condições:* Reserva com situação "Concluída" e ainda sem avaliação do cliente.|
+|*Pós-condições:* Avaliação do cliente registrada.|
+|*FLUXO PRINCIPAL / BÁSICO:*|
+|1. Proprietário acessa a reserva concluída e escolhe "Avaliar hóspede".|
+|2. O sistema exibe o formulário.|
+|3. Proprietário informa notas de 1 a 5 (geral, comunicação, pontualidade, respeito às regras e cuidado com o imóvel) e, opcionalmente, um comentário.|
+|4. O sistema registra a avaliação.|
+|*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
+|*A1: Cliente já avaliado:*|
+|1. No passo 1, o sistema informa que o cliente já foi avaliado nessa reserva.|
+|*A2: Nota fora do intervalo:*|
+|1. No passo 3, o sistema solicita notas entre 1 e 5.|
 
 
 
