@@ -250,7 +250,7 @@ Os requisitos RF-001 a RF-010 foram elicitados no Milestone 1, por entrevista co
 | **RF-003** | Cadastro e manutenção de acomodações | O sistema deve permitir que o proprietário cadastre, altere e exclua hospedagens (dados do imóvel, endereço, regras, horários, valores, fotos ordenadas e comodidades), defina preços por período e publique a hospedagem, que fica como rascunho até ser publicada. | Essencial | Entrevista (#11) |
 | **RF-004** | Consulta de acomodações | O sistema deve permitir que qualquer pessoa pesquise hospedagens publicadas por cidade, período e número de hóspedes, com filtros de preço, avaliação, tipo e comodidades, e consulte os detalhes de cada uma (fotos, descrição, comodidades, regras, preços e avaliações). | Essencial | Entrevista (#7) |
 | **RF-005** | Solicitação de reserva | O sistema deve permitir que o cliente solicite uma reserva informando check-in, check-out e número de hóspedes, verificando a disponibilidade do período, calculando o valor total conforme o preço por noite de cada período e aplicando cupom de desconto ativo e válido. | Essencial | Entrevista (#15) |
-| **RF-006** | Ciclo da reserva | O sistema deve controlar a situação da reserva (solicitada, confirmada, concluída e cancelada) e permitir apenas as transições válidas entre situações. | Essencial | Entrevista (#18) |
+| **RF-006** | Ciclo da reserva | O sistema deve controlar a situação da reserva (pendente, confirmada, concluída e cancelada) e permitir apenas as transições válidas entre situações. | Essencial | Entrevista (#18) |
 | **RF-007** | Reservas do proprietário | O sistema deve permitir que o proprietário consulte as reservas recebidas em suas hospedagens e atualize a situação de cada uma. | Essencial | Entrevista (#17) |
 | **RF-008** | Reservas do cliente | O sistema deve permitir que o cliente consulte suas reservas, com hospedagem, período, valor e situação. | Essencial | Entrevista (#8) |
 | **RF-009** | Cancelamento de reserva | O sistema deve permitir que o cliente cancele uma reserva ainda não concluída, liberando o período na hospedagem. | Essencial | Entrevista (#10) |
@@ -911,7 +911,7 @@ Os itens a seguir foram identificados ao comparar os requisitos com o [Dicionár
 
 | # | PENDÊNCIA | REQUISITOS AFETADOS |
 |:---|:---|:---|
-| 1 | ~~A tabela `RESERVA` não tem campo de situação (status), necessário para controlar o ciclo e o cancelamento da reserva.~~ **Resolvida:** campo `RESE_DS_STATUS` adicionado ([issue #73](https://gitlab.fslab.dev/fabrica-de-software-i-2026/projeto5/-/issues/73)). | RF-006, RF-007, RF-008, RF-009 |
+| 1 | Resolvida: a tabela RESERVA recebeu o campo RESE_DS_STATUS (PENDENTE, CONFIRMADA, CANCELADA e CONCLUIDA) ([issue #73](https://gitlab.fslab.dev/fabrica-de-software-i-2026/projeto5/-/issues/73)). | RF-006, RF-007, RF-008, RF-009 |
 | 2 | Não há tabela de log para registrar as alterações relevantes com data, hora e usuário responsável. | RNF-004 |
 | 3 | O campo `USUA_DS_TIPO` guarda um único perfil, mas a regra permite que o mesmo usuário seja cliente e proprietário. | RF-001, RN-002 |
 | 4 | O perfil de administrador não está previsto no banco (`USUA_DS_TIPO` aceita apenas cliente ou proprietário). Perfil fora do escopo desta versão. | RF-013, RF-014, RNF-002 |
@@ -1238,7 +1238,7 @@ Avaliação do cliente feita pelo proprietário. Cada reserva recebe no máximo 
 
 ![Diagrama de classes — Reservas e Avaliação](img/classes_reservas_avaliacao.png)
 
-> Valores do enum `SituacaoReserva`: Solicitada, Confirmada, Concluída e Cancelada (RF-006).
+> Valores do enum `SituacaoReserva`: Pendente, Confirmada, Concluída e Cancelada (RF-006).
 
 
 # Diagrama de Casos de Uso
@@ -1329,7 +1329,7 @@ Decisões do grupo no Milestone 3: o perfil Administrador (RF-013 e RF-014, requ
 |*Descrição/Objetivo:* Permite que o cliente reserve uma acomodação para um período.|
 |*Atores:* Cliente|
 |*Pré-condições:* Cliente autenticado e acomodação selecionada.|
-|*Pós-condições:* Reserva registrada com situação "Solicitada" e o período ocupado na acomodação.|
+|*Pós-condições:* Reserva registrada com situação "Pendente" e o período ocupado na acomodação.|
 |*FLUXO PRINCIPAL / BÁSICO:*|
 |1. Cliente informa o período e o número de hóspedes e solicita a reserva.|
 |2. O sistema verifica a disponibilidade do período (inclui UC-05).|
@@ -1411,7 +1411,7 @@ Decisões do grupo no Milestone 3: o perfil Administrador (RF-013 e RF-014, requ
 |4. O sistema salva a nova situação.|
 |*FLUXOS ALTERNATIVOS / EXCEÇÕES:*|
 |*A1: Transição inválida:*|
-|1. No passo 3, se a transição não for permitida, o sistema informa e mantém a situação atual. (transições válidas: Solicitada → Confirmada, Confirmada → Concluída, Solicitada ou Confirmada → Cancelada)|
+|1. No passo 3, se a transição não for permitida, o sistema informa e mantém a situação atual. (transições válidas: Pendente → Confirmada, Confirmada → Concluída, Pendente ou Confirmada → Cancelada)|
 
 ### UC-09 - Avaliar Hospedagem
 
