@@ -922,6 +922,18 @@ Os itens a seguir foram identificados ao comparar os requisitos com o [Dicionár
 
 O protótipo das telas foi desenvolvido no Figma: [HERA — Protótipo](https://www.figma.com/design/Ap64svSqPkcBFoPZL0mJrf/Fabrica-I?node-id=0-1&p=f&t=wRyGjbrLVNiPLK7Z-0)
 
+## Wireframes
+
+Os wireframes foram elaborados no Figma e orientaram a criação do protótipo de alta fidelidade.
+
+### Home
+
+![Home](img/wireframes/01_home.png)
+
+### Reserva – pagamento
+
+![Reserva – pagamento](img/wireframes/07_reserva_pagamento.png)
+
 ## Fluxo Completo Protótipo
 
 [INSERIR IMAGENS DAS TELAS EM `img/`]
