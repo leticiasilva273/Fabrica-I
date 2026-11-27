@@ -1199,11 +1199,13 @@ O banco de dados (MySQL) é composto por 20 tabelas, organizadas em quatro grupo
 
 Script de criação do banco: [GESTAO_HOSPEDAGEM.sql](arquivos/GESTAO_HOSPEDAGEM.sql)
 
+Dados de exemplo para demonstração, a executar depois do script de criação: [GESTAO_HOSPEDAGEM_dados_exemplo.sql](arquivos/GESTAO_HOSPEDAGEM_dados_exemplo.sql). Todos os dados são fictícios e preenchem as 20 tabelas: 2 proprietários, 4 clientes, 4 hospedagens e 5 reservas que cobrem os quatro status, com avaliações nas reservas concluídas.
+
 Dicionário de dados completo (tipo, nulo, padrão e chaves de cada campo): [dicionario_de_dados.md](banco_de_dados/dicionario_de_dados.md)
 
 A tabela `RESERVA` tem o campo `RESE_DS_STATUS` (situação da reserva), com valor padrão `'PENDENTE'` e valores restritos a `PENDENTE`, `CONFIRMADA`, `CANCELADA` e `CONCLUIDA` ([issue #73](https://gitlab.fslab.dev/fabrica-de-software-i-2026/projeto5/-/issues/73)).
 
-Modelo editável: [arquivos/](arquivos/)
+Modelo editável (MySQL Workbench): [modelo_logico.mwb](arquivos/modelo_logico.mwb)
 
 ## Dicionário de Dados
 
