@@ -922,6 +922,12 @@ Os itens a seguir foram identificados ao comparar os requisitos com o [Dicionár
 
 O protótipo das telas foi desenvolvido no Figma: [HERA — Protótipo](https://www.figma.com/design/Ap64svSqPkcBFoPZL0mJrf/Fabrica-I?node-id=0-1&p=f&t=wRyGjbrLVNiPLK7Z-0)
 
+## Site map
+
+![Site map do HERA](img/wireframes/site_map.png)
+
+O site map foi revisado no Milestone 3 para refletir os casos de uso finais: inclusão de Recuperar senha (RF-002), Pagamento (RF-011), Reservas recebidas (UC-07/UC-08) e Avaliar hóspede (UC-10), e troca de "Calendário" por "Calendário e preços" (UC-02).
+
 ## Wireframes
 
 Os wireframes foram elaborados no Figma e orientaram a criação do protótipo de alta fidelidade.
