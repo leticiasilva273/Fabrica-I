@@ -43,13 +43,13 @@ Avaliação do cliente feita pelo proprietário. Cada reserva recebe no máximo 
 | Campo | Tipo | Nulo | Padrão | Chave | Descrição |
 |:---|:---|:---|:---|:---|:---|
 | `AVCL_ID_AVALIACAO` | int | Não | — | PK | Identificador da avaliação (AUTO_INCREMENT) |
-| `AVCL_NR_GERAL` | int | Não | — | | Nota geral do cliente (1 a 5) |
-| `AVCL_NR_COMUNICACAO` | int | Não | — | | Nota de comunicação (1 a 5) |
-| `AVCL_NR_PONTUALIDADE` | int | Não | — | | Nota de pontualidade no check-in e no check-out (1 a 5) |
-| `AVCL_NR_RESPEITO_REGRA` | int | Não | — | | Nota de respeito às regras da hospedagem (1 a 5) |
-| `AVCL_NR_CUIDADO_IMOVEL` | int | Não | — | | Nota de cuidado com o imóvel (1 a 5) |
+| `AVCL_NR_GERAL` | int | Não | — | | Nota geral do cliente (1 a 5, faixa validada pela aplicação) |
+| `AVCL_NR_COMUNICACAO` | int | Não | — | | Nota de comunicação (1 a 5, faixa validada pela aplicação) |
+| `AVCL_NR_PONTUALIDADE` | int | Não | — | | Nota de pontualidade no check-in e no check-out (1 a 5, faixa validada pela aplicação) |
+| `AVCL_NR_RESPEITO_REGRA` | int | Não | — | | Nota de respeito às regras da hospedagem (1 a 5, faixa validada pela aplicação) |
+| `AVCL_NR_CUIDADO_IMOVEL` | int | Não | — | | Nota de cuidado com o imóvel (1 a 5, faixa validada pela aplicação) |
 | `AVCL_DS_COMENTARIO` | varchar(255) | Sim | NULL | | Comentário opcional do proprietário |
-| `AVCL_DT_AVALIACAO` | datetime | Sim | CURRENT_TIMESTAMP | | Data e hora da avaliação |
+| `AVCL_DT_AVALIACAO` | datetime | Sim | CURRENT_TIMESTAMP | | Data e hora da avaliação, preenchida automaticamente pelo banco |
 | `FK_RESE_ID_RESERVA` | int | Não | — | FK, UK | Reserva avaliada (RESERVA) |
 
 ## AVALIACAO_HOSPEDAGEM
@@ -59,13 +59,13 @@ Avaliação da hospedagem feita pelo cliente. Cada reserva recebe no máximo uma
 | Campo | Tipo | Nulo | Padrão | Chave | Descrição |
 |:---|:---|:---|:---|:---|:---|
 | `AVHO_ID_AVALIACAO` | int | Não | — | PK | Identificador da avaliação (AUTO_INCREMENT) |
-| `AVHO_NR_GERAL` | int | Não | — | | Nota geral (1 a 5) |
-| `AVHO_NR_LIMPEZA` | int | Não | — | | Nota de limpeza (1 a 5) |
-| `AVHO_NR_CONFORTO` | int | Não | — | | Nota de conforto (1 a 5) |
-| `AVHO_NR_ATENDIMENTO` | int | Não | — | | Nota de atendimento (1 a 5) |
-| `AVHO_NR_CUSTO_BENEFICIO` | int | Não | — | | Nota de custo-benefício (1 a 5) |
+| `AVHO_NR_GERAL` | int | Não | — | | Nota geral (1 a 5, faixa validada pela aplicação) |
+| `AVHO_NR_LIMPEZA` | int | Não | — | | Nota de limpeza (1 a 5, faixa validada pela aplicação) |
+| `AVHO_NR_CONFORTO` | int | Não | — | | Nota de conforto (1 a 5, faixa validada pela aplicação) |
+| `AVHO_NR_ATENDIMENTO` | int | Não | — | | Nota de atendimento (1 a 5, faixa validada pela aplicação) |
+| `AVHO_NR_CUSTO_BENEFICIO` | int | Não | — | | Nota de custo-benefício (1 a 5, faixa validada pela aplicação) |
 | `AVHO_DS_COMENTARIO` | varchar(255) | Sim | NULL | | Comentário opcional do cliente |
-| `AVHO_DT_AVALIACAO` | datetime | Sim | CURRENT_TIMESTAMP | | Data e hora da avaliação |
+| `AVHO_DT_AVALIACAO` | datetime | Sim | CURRENT_TIMESTAMP | | Data e hora da avaliação, preenchida automaticamente pelo banco |
 | `FK_RESE_ID_RESERVA` | int | Não | — | FK, UK | Reserva avaliada (RESERVA) |
 
 ## CADASTRO_HOSPEDAGEM
@@ -90,7 +90,7 @@ Hospedagens cadastradas pelos proprietários. Toda hospedagem começa como rascu
 | `CAHO_VL_DIARIA` | decimal(10,2) | Não | — | | Valor padrão da diária |
 | `CAHO_VL_FIM_SEMANA` | decimal(10,2) | Sim | NULL | | Valor da diária nos fins de semana |
 | `CAHO_VL_LIMPEZA` | decimal(10,2) | Sim | '0.00' | | Taxa de limpeza cobrada por reserva |
-| `CAHO_DS_STATUS` | varchar(20) | Não | 'RASCUNHO' | | Situação da hospedagem (RASCUNHO ou PUBLICADA) |
+| `CAHO_DS_STATUS` | varchar(20) | Não | 'RASCUNHO' | | Situação da hospedagem (RASCUNHO ou PUBLICADA; valores não restringidos no banco) |
 | `FK_ENDE_ID_ENDERECO` | int | Não | — | FK, UK | Endereço da hospedagem (ENDERECO). Cada endereço pertence a uma única hospedagem |
 
 ## CLIENTE
@@ -113,7 +113,7 @@ Associação entre clientes e preferências (relacionamento N:N). A chave primá
 
 | Campo | Tipo | Nulo | Padrão | Chave | Descrição |
 |:---|:---|:---|:---|:---|:---|
-| `FK_CLIE_ID_CLIENTE` | int | Não | — | PK, FK | Cliente (CLIENTE) |
+| `FK_CLIE_ID_CLIENTE` | int | Não | — | PK, FK | Cliente que escolheu a preferência (CLIENTE) |
 | `FK_PREF_ID_PREFERENCIA` | int | Não | — | PK, FK | Preferência escolhida pelo cliente (PREFERENCIA) |
 
 ## COMODIDADES
@@ -145,10 +145,10 @@ Endereços de clientes, proprietários e hospedagens.
 | Campo | Tipo | Nulo | Padrão | Chave | Descrição |
 |:---|:---|:---|:---|:---|:---|
 | `ENDE_ID_ENDERECO` | int | Não | — | PK | Identificador do endereço (AUTO_INCREMENT) |
-| `ENDE_NR_ENDERECO` | varchar(10) | Sim | NULL | | Número do imóvel (pode ficar vazio, ex.: "s/n") |
+| `ENDE_NR_ENDERECO` | varchar(10) | Sim | NULL | | Número do imóvel. Fica vazio quando o endereço não tem número (s/n) |
 | `ENDE_DS_COMPLEMENTO` | varchar(100) | Sim | NULL | | Complemento do endereço (apartamento, bloco etc.) |
 | `FK_ENCE_ID_CEP` | int | Não | — | FK | CEP do endereço (ENDERECO_CEP) |
-| `ENDE_DS_BAIRRO` | varchar(100) | Não | — | | Bairro |
+| `ENDE_DS_BAIRRO` | varchar(100) | Não | — | | Bairro do endereço |
 | `ENDE_DS_LOGRADOURO` | varchar(100) | Não | — | | Logradouro (rua, avenida etc.) |
 
 ## ENDERECO_CEP
@@ -230,8 +230,8 @@ Dados do perfil de proprietário, pessoa física (CPF) ou jurídica (CNPJ).
 |:---|:---|:---|:---|:---|:---|
 | `PROP_ID_PROPRIETARIO` | int | Não | — | PK | Identificador do proprietário (AUTO_INCREMENT) |
 | `FK_USUA_ID_USUARIO` | int | Não | — | FK, UK | Conta de usuário do proprietário (USUARIOS). Um usuário tem no máximo um perfil de proprietário |
-| `PROP_NR_CPF` | varchar(14) | Sim | NULL | UK | CPF do proprietário pessoa física. Deve ser informado o CPF ou o CNPJ |
-| `PROP_NR_CNPJ` | varchar(18) | Sim | NULL | UK | CNPJ do proprietário pessoa jurídica. Deve ser informado o CPF ou o CNPJ |
+| `PROP_NR_CPF` | varchar(14) | Sim | NULL | UK | CPF do proprietário pessoa física. Deve ser informado o CPF ou o CNPJ (regra da aplicação, o banco não exige) |
+| `PROP_NR_CNPJ` | varchar(18) | Sim | NULL | UK | CNPJ do proprietário pessoa jurídica. Deve ser informado o CPF ou o CNPJ (regra da aplicação, o banco não exige) |
 | `PROP_NM_COMPLETO` | varchar(255) | Não | — | | Nome completo ou razão social do proprietário |
 | `PROP_DS_CELULAR` | varchar(12) | Não | — | | Número de celular do proprietário |
 | `FK_ENDE_ID_ENDERECO` | int | Não | — | FK | Endereço do proprietário (ENDERECO) |
@@ -242,8 +242,8 @@ Solicitações de recuperação de senha. Cada solicitação gera um código pr�
 
 | Campo | Tipo | Nulo | Padrão | Chave | Descrição |
 |:---|:---|:---|:---|:---|:---|
-| `RESN_ID_RECUPERACAO` | int | Não | — | PK | Identificador da solicitação (AUTO_INCREMENT) |
-| `FK_USUA_ID_USUARIO` | int | Não | — | FK | Usuário que pediu a recuperação (USUARIOS) |
+| `RESN_ID_RECUPERACAO` | int | Não | — | PK | Identificador da solicitação de recuperação (AUTO_INCREMENT) |
+| `FK_USUA_ID_USUARIO` | int | Não | — | FK | Usuário que solicitou a recuperação (USUARIOS) |
 | `RESN_DS_CODIGO` | varchar(5) | Não | — | | Código de verificação enviado ao e-mail |
 | `RESN_DT_EXPIRAR` | datetime | Não | — | | Data e hora em que o código expira |
 | `RESN_LG_USADO` | tinyint(1) | Não | '0' | | Indica se o código já foi usado (0 = não, 1 = sim) |
@@ -258,13 +258,13 @@ Reservas feitas pelos clientes nas hospedagens.
 | `FK_CLIE_ID_CLIENTE` | int | Não | — | FK | Cliente que fez a reserva (CLIENTE) |
 | `FK_CUPO_ID_CUPOM` | int | Sim | NULL | FK | Cupom aplicado na reserva (CUPOM). Vazio quando não há cupom |
 | `RESE_ID_RESERVA` | int | Não | — | PK | Identificador da reserva (AUTO_INCREMENT) |
-| `RESE_DT_CHECKIN` | datetime | Não | — | | Data e hora de entrada |
-| `RESE_DT_CHECKOUT` | datetime | Não | — | | Data e hora de saída |
-| `RESE_NR_HOSPEDE` | int | Não | — | | Número de hóspedes |
+| `RESE_DT_CHECKIN` | datetime | Não | — | | Data e hora de entrada (check-in) da reserva |
+| `RESE_DT_CHECKOUT` | datetime | Não | — | | Data e hora de saída (check-out) da reserva |
+| `RESE_NR_HOSPEDE` | int | Não | — | | Quantidade de hóspedes da reserva |
 | `RESE_LG_CONTRATO` | tinyint(1) | Não | '0' | | Indica se o cliente aceitou o contrato (0 = não, 1 = sim) |
 | `RESE_DS_CODIGO` | varchar(15) | Sim | NULL | UK | Código da reserva exibido ao cliente (ex.: #HERA-02541) |
 | `RESE_VL_TOTAL` | decimal(10,2) | Não | — | | Valor total da reserva |
-| `RESE_VL_DESCONTO` | decimal(10,2) | Não | '0.00' | | Valor do desconto aplicado |
+| `RESE_VL_DESCONTO` | decimal(10,2) | Não | '0.00' | | Valor do desconto aplicado à reserva (0.00 quando não há cupom) |
 | `RESE_DS_STATUS` | varchar(20) | Não | 'PENDENTE' | | Situação da reserva. Aceita apenas PENDENTE, CONFIRMADA, CANCELADA ou CONCLUIDA (restrição `chk_rese_status`). Ver detalhes abaixo |
 
 ### Situação da reserva (`RESE_DS_STATUS`)
