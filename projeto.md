@@ -982,7 +982,195 @@ Os wireframes foram elaborados no Figma e orientaram a criação do protótipo d
 
 ## Fluxo Completo Protótipo
 
-[INSERIR IMAGENS DAS TELAS EM `img/`]
+As telas a seguir compõem o protótipo de alta fidelidade, organizadas por área do sistema.
+
+### Área pública e acesso
+
+#### Home
+
+![Home](img/prototipo/01_home.png)
+
+#### Login
+
+![Login](img/prototipo/02_login.png)
+
+#### Tipo de conta
+
+![Tipo de conta](img/prototipo/03_tipo_de_conta.png)
+
+#### Cadastro cliente
+
+![Cadastro cliente](img/prototipo/04_cadastro_cliente.png)
+
+#### Home logado
+
+![Home logado](img/prototipo/15_home_logado.png)
+
+#### Personalização
+
+![Personalização](img/prototipo/16_personalizacao.png)
+
+#### Cadastro proprietário 1
+
+![Cadastro proprietário 1](img/prototipo/17_cadastro_proprietario_1.png)
+
+#### Cadastro cliente 2
+
+![Cadastro cliente 2](img/prototipo/18_cadastro_cliente_2.png)
+
+#### Cadastro proprietário 2
+
+![Cadastro proprietário 2](img/prototipo/19_cadastro_proprietario_2.png)
+
+#### Recuperar senha 1
+
+![Recuperar senha 1](img/prototipo/37_recuperar_senha_1.png)
+
+#### Recuperar senha 2
+
+![Recuperar senha 2](img/prototipo/38_recuperar_senha_2.png)
+
+#### Recuperar senha 3
+
+![Recuperar senha 3](img/prototipo/39_recuperar_senha_3.png)
+
+#### Visitante não logado
+
+![Visitante não logado](img/prototipo/40_visitante_nao_logado.png)
+
+#### Login perfil
+
+![Login perfil](img/prototipo/43_login_perfil.png)
+
+### Hospedagens
+
+#### Detalhe hospedagem
+
+![Detalhe hospedagem](img/prototipo/05_detalhe_hospedagem.png)
+
+#### Bloco avaliações comodidades
+
+![Bloco avaliações comodidades](img/prototipo/20_bloco_avaliacoes_comodidades.png)
+
+#### Detalhe hospedagem logado
+
+![Detalhe hospedagem logado](img/prototipo/21_detalhe_hospedagem_logado.png)
+
+#### Hospedagem logado
+
+![Hospedagem logado](img/prototipo/22_hospedagem_logado.png)
+
+#### Hospedagem sem login
+
+![Hospedagem sem login](img/prototipo/23_hospedagem_sem_login.png)
+
+#### Detalhe hospedagem visitante
+
+![Detalhe hospedagem visitante](img/prototipo/42_detalhe_hospedagem_visitante.png)
+
+### Reserva
+
+#### Reserva data
+
+![Reserva data](img/prototipo/06_reserva_data.png)
+
+#### Reserva cálculo
+
+![Reserva cálculo](img/prototipo/28_reserva_calculo.png)
+
+#### Reserva contrato
+
+![Reserva contrato](img/prototipo/29_reserva_contrato.png)
+
+#### Reserva pagamento
+
+![Reserva pagamento](img/prototipo/07_reserva_pagamento.png)
+
+#### Reserva confirmada
+
+![Reserva confirmada](img/prototipo/08_reserva_confirmada.png)
+
+#### Check in
+
+![Check in](img/prototipo/34_check_in.png)
+
+#### Estadia em andamento
+
+![Estadia em andamento](img/prototipo/36_estadia_em_andamento.png)
+
+#### Check out
+
+![Check out](img/prototipo/35_check_out.png)
+
+#### Avaliar hospedagem
+
+![Avaliar hospedagem](img/prototipo/09_avaliar_hospedagem.png)
+
+### Minha conta (cliente)
+
+#### Minha conta perfil
+
+![Minha conta perfil](img/prototipo/25_minha_conta_perfil.png)
+
+#### Editar perfil
+
+![Editar perfil](img/prototipo/26_editar_perfil.png)
+
+#### Editar endereço
+
+![Editar endereço](img/prototipo/27_editar_endereco.png)
+
+#### Configurações conta
+
+![Configurações conta](img/prototipo/44_configuracoes_conta.png)
+
+### Área do proprietário
+
+#### Painel proprietário
+
+![Painel proprietário](img/prototipo/10_painel_proprietario.png)
+
+#### Gerenciar hospedagens
+
+![Gerenciar hospedagens](img/prototipo/24_gerenciar_hospedagens.png)
+
+#### Cadastrar hospedagem
+
+![Cadastrar hospedagem](img/prototipo/11_cadastrar_hospedagem.png)
+
+#### Editar hospedagem
+
+![Editar hospedagem](img/prototipo/41_editar_hospedagem.png)
+
+#### Calendário
+
+![Calendário](img/prototipo/12_calendario.png)
+
+#### Meu perfil proprietário
+
+![Meu perfil proprietário](img/prototipo/13_meu_perfil_proprietario.png)
+
+#### Meu perfil proprietário curto
+
+![Meu perfil proprietário curto](img/prototipo/14_meu_perfil_proprietario_curto.png)
+
+### Estados do sistema
+
+#### Estado erro
+
+![Estado erro](img/prototipo/30_estado_erro.png)
+
+#### Estado acesso bloqueado
+
+![Estado acesso bloqueado](img/prototipo/31_estado_acesso_bloqueado.png)
+
+#### Estado visitante não logado
+
+![Estado visitante não logado](img/prototipo/32_estado_visitante_nao_logado.png)
+
+#### Estado painel normal
+
+![Estado painel normal](img/prototipo/33_estado_painel_normal.png)
 
 
 [ [INÍCIO](#projeto-de-software) ]
