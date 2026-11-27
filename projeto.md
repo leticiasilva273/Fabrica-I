@@ -930,9 +930,49 @@ Os wireframes foram elaborados no Figma e orientaram a criação do protótipo d
 
 ![Home](img/wireframes/01_home.png)
 
+### Login
+
+![Login](img/wireframes/02_login.png)
+
+### Tipo de conta
+
+![Tipo de conta](img/wireframes/03_tipo_de_conta.png)
+
+### Cadastro de cliente
+
+![Cadastro de cliente](img/wireframes/04_cadastro_cliente.png)
+
+### Detalhe da hospedagem
+
+![Detalhe da hospedagem](img/wireframes/05_detalhe_hospedagem.png)
+
+### Reserva – data
+
+![Reserva – data](img/wireframes/06_reserva_data.png)
+
 ### Reserva – pagamento
 
 ![Reserva – pagamento](img/wireframes/07_reserva_pagamento.png)
+
+### Reserva confirmada
+
+![Reserva confirmada](img/wireframes/08_reserva_confirmada.png)
+
+### Avaliar hospedagem
+
+![Avaliar hospedagem](img/wireframes/09_avaliar_hospedagem.png)
+
+### Painel do proprietário
+
+![Painel do proprietário](img/wireframes/10_painel_proprietario.png)
+
+### Cadastrar hospedagem
+
+![Cadastrar hospedagem](img/wireframes/11_cadastrar_hospedagem.png)
+
+### Calendário e preços
+
+![Calendário e preços](img/wireframes/12_calendario.png)
 
 ## Fluxo Completo Protótipo
 
