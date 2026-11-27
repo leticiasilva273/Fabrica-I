@@ -928,6 +928,17 @@ O protótipo das telas foi desenvolvido no Figma: [HERA — Protótipo](https://
 
 O site map foi revisado no Milestone 3 para refletir os casos de uso finais: inclusão de Recuperar senha (RF-002), Pagamento (RF-011), Reservas recebidas (UC-07/UC-08) e Avaliar hóspede (UC-10), e troca de "Calendário" por "Calendário e preços" (UC-02).
 
+O sistema está organizado em quatro áreas, a partir da página inicial (Home):
+
+| ÁREA | PÁGINAS | QUEM ACESSA |
+|:---|:---|:---|
+| Área pública | Início, Explorar, Login, Cadastro e Recuperar senha | Qualquer visitante, sem login |
+| Sistema | Notificações, Galeria, Segurança e Configurações | Usuário autenticado (cliente ou proprietário) |
+| Área do cliente | Acomodações, Reservas, Pagamento, Contrato, Avaliações e Meu perfil | Cliente autenticado |
+| Área do proprietário | Dashboard, Acomodações, Calendário e preços, Reservas recebidas, Avaliar hóspede, Contrato, Financeiro e Relatórios | Proprietário autenticado |
+
+O acesso a cada área segue o perfil do usuário (RNF-002): o visitante só navega pela área pública e precisa entrar para reservar, e o cliente não acessa a área do proprietário.
+
 ## Wireframes
 
 Os wireframes foram elaborados no Figma e orientaram a criação do protótipo de alta fidelidade.
