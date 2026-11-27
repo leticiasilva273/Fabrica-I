@@ -1008,8 +1008,8 @@ Dados do perfil de proprietário, pessoa física (CPF) ou jurídica (CNPJ).
 |:---|:---|:---|:---|:---|
 | `PROP_ID_PROPRIETARIO` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador do proprietário |
 | `FK_USUA_ID_USUARIO` | INT | FK / UNIQUE | NOT NULL | Conta de usuário do proprietário (USUARIOS). Um usuário tem no máximo um perfil de proprietário |
-| `PROP_NR_CPF` | VARCHAR(14) | UNIQUE | NULL | CPF do proprietário pessoa física. Deve ser informado o CPF ou o CNPJ |
-| `PROP_NR_CNPJ` | VARCHAR(18) | UNIQUE | NULL | CNPJ do proprietário pessoa jurídica. Deve ser informado o CPF ou o CNPJ |
+| `PROP_NR_CPF` | VARCHAR(14) | UNIQUE | NULL | CPF do proprietário pessoa física. Deve ser informado o CPF ou o CNPJ (regra da aplicação, o banco não exige) |
+| `PROP_NR_CNPJ` | VARCHAR(18) | UNIQUE | NULL | CNPJ do proprietário pessoa jurídica. Deve ser informado o CPF ou o CNPJ (regra da aplicação, o banco não exige) |
 | `PROP_NM_COMPLETO` | VARCHAR(255) | Simples | NOT NULL | Nome completo ou razão social do proprietário |
 | `PROP_DS_CELULAR` | VARCHAR(12) | Simples | NOT NULL | Número de celular do proprietário |
 | `FK_ENDE_ID_ENDERECO` | INT | FK | NOT NULL | Endereço do proprietário (ENDERECO) |
@@ -1029,7 +1029,7 @@ Associação entre clientes e preferências (relacionamento N:N).
 
 | CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
 |:---|:---|:---|:---|:---|
-| `FK_CLIE_ID_CLIENTE` | INT | PK / FK | NOT NULL | Cliente (CLIENTE) |
+| `FK_CLIE_ID_CLIENTE` | INT | PK / FK | NOT NULL | Cliente que escolheu a preferência (CLIENTE) |
 | `FK_PREF_ID_PREFERENCIA` | INT | PK / FK | NOT NULL | Preferência escolhida pelo cliente (PREFERENCIA) |
 
 ### ENDERECO_CIDADE
@@ -1059,10 +1059,10 @@ Endereços de clientes, proprietários e hospedagens.
 | CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
 |:---|:---|:---|:---|:---|
 | `ENDE_ID_ENDERECO` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador do endereço |
-| `ENDE_NR_ENDERECO` | VARCHAR(10) | Simples | NULL | Número do imóvel (pode ser vazio, ex.: "s/n") |
+| `ENDE_NR_ENDERECO` | VARCHAR(10) | Simples | NULL | Número do imóvel. Fica vazio quando o endereço não tem número (s/n) |
 | `ENDE_DS_COMPLEMENTO` | VARCHAR(100) | Simples | NULL | Complemento do endereço (apartamento, bloco etc.) |
 | `FK_ENCE_ID_CEP` | INT | FK | NOT NULL | CEP do endereço (ENDERECO_CEP) |
-| `ENDE_DS_BAIRRO` | VARCHAR(100) | Simples | NOT NULL | Bairro |
+| `ENDE_DS_BAIRRO` | VARCHAR(100) | Simples | NOT NULL | Bairro do endereço |
 | `ENDE_DS_LOGRADOURO` | VARCHAR(100) | Simples | NOT NULL | Logradouro (rua, avenida etc.) |
 
 ### CADASTRO_HOSPEDAGEM
@@ -1087,12 +1087,12 @@ Hospedagens cadastradas pelos proprietários. Toda hospedagem começa como rascu
 | `CAHO_VL_DIARIA` | DECIMAL(10,2) | Simples | NOT NULL | Valor padrão da diária |
 | `CAHO_VL_FIM_SEMANA` | DECIMAL(10,2) | Simples | NULL | Valor da diária nos fins de semana |
 | `CAHO_VL_LIMPEZA` | DECIMAL(10,2) | Simples | NULL, DEFAULT 0.00 | Taxa de limpeza cobrada por reserva |
-| `CAHO_DS_STATUS` | VARCHAR(20) | Simples | NOT NULL, DEFAULT 'RASCUNHO' | Situação da hospedagem (RASCUNHO ou PUBLICADA) |
+| `CAHO_DS_STATUS` | VARCHAR(20) | Simples | NOT NULL, DEFAULT 'RASCUNHO' | Situação da hospedagem (RASCUNHO ou PUBLICADA; valores não restringidos no banco) |
 | `FK_ENDE_ID_ENDERECO` | INT | FK / UNIQUE | NOT NULL | Endereço da hospedagem (ENDERECO). Cada endereço pertence a uma única hospedagem |
 
 ### FOTO_HOSPEDAGEM
 
-Fotos das hospedagens, exibidas em ordem definida pelo proprietário.
+Fotos das hospedagens, exibidas na ordem definida pelo proprietário.
 
 | CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
 |:---|:---|:---|:---|:---|
@@ -1155,13 +1155,13 @@ Reservas feitas pelos clientes nas hospedagens.
 | `FK_CLIE_ID_CLIENTE` | INT | FK | NOT NULL | Cliente que fez a reserva (CLIENTE) |
 | `FK_CUPO_ID_CUPOM` | INT | FK | NULL | Cupom aplicado na reserva (CUPOM). Vazio quando não há cupom |
 | `RESE_ID_RESERVA` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador da reserva |
-| `RESE_DT_CHECKIN` | DATETIME | Simples | NOT NULL | Data e hora de entrada |
-| `RESE_DT_CHECKOUT` | DATETIME | Simples | NOT NULL | Data e hora de saída |
-| `RESE_NR_HOSPEDE` | INT | Simples | NOT NULL | Número de hóspedes |
+| `RESE_DT_CHECKIN` | DATETIME | Simples | NOT NULL | Data e hora de entrada (check-in) da reserva |
+| `RESE_DT_CHECKOUT` | DATETIME | Simples | NOT NULL | Data e hora de saída (check-out) da reserva |
+| `RESE_NR_HOSPEDE` | INT | Simples | NOT NULL | Quantidade de hóspedes da reserva |
 | `RESE_LG_CONTRATO` | TINYINT(1) | Simples | NOT NULL, DEFAULT 0 | Indica se o cliente aceitou o contrato (0 = não, 1 = sim) |
 | `RESE_DS_CODIGO` | VARCHAR(15) | UNIQUE | NULL | Código da reserva exibido ao cliente (ex.: #HERA-02541) |
 | `RESE_VL_TOTAL` | DECIMAL(10,2) | Simples | NOT NULL | Valor total da reserva |
-| `RESE_VL_DESCONTO` | DECIMAL(10,2) | Simples | NOT NULL, DEFAULT 0.00 | Valor do desconto aplicado |
+| `RESE_VL_DESCONTO` | DECIMAL(10,2) | Simples | NOT NULL, DEFAULT 0.00 | Valor do desconto aplicado à reserva (0.00 quando não há cupom) |
 | `RESE_DS_STATUS` | VARCHAR(20) | Simples | NOT NULL, DEFAULT 'PENDENTE', CHECK | Situação da reserva: PENDENTE (solicitada, aguardando pagamento), CONFIRMADA (pagamento registrado), CANCELADA (cancelada antes do check-in) ou CONCLUIDA (estadia encerrada). Ver o [dicionário de dados](banco_de_dados/dicionario_de_dados.md#situação-da-reserva-rese_ds_status) |
 
 ### PAGAMENTO
@@ -1192,13 +1192,13 @@ Avaliação da hospedagem feita pelo cliente. Cada reserva recebe no máximo uma
 | CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
 |:---|:---|:---|:---|:---|
 | `AVHO_ID_AVALIACAO` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador da avaliação |
-| `AVHO_NR_GERAL` | INT | Simples | NOT NULL | Nota geral (1 a 5) |
-| `AVHO_NR_LIMPEZA` | INT | Simples | NOT NULL | Nota de limpeza (1 a 5) |
-| `AVHO_NR_CONFORTO` | INT | Simples | NOT NULL | Nota de conforto (1 a 5) |
-| `AVHO_NR_ATENDIMENTO` | INT | Simples | NOT NULL | Nota de atendimento (1 a 5) |
-| `AVHO_NR_CUSTO_BENEFICIO` | INT | Simples | NOT NULL | Nota de custo-benefício (1 a 5) |
+| `AVHO_NR_GERAL` | INT | Simples | NOT NULL | Nota geral (1 a 5, faixa validada pela aplicação) |
+| `AVHO_NR_LIMPEZA` | INT | Simples | NOT NULL | Nota de limpeza (1 a 5, faixa validada pela aplicação) |
+| `AVHO_NR_CONFORTO` | INT | Simples | NOT NULL | Nota de conforto (1 a 5, faixa validada pela aplicação) |
+| `AVHO_NR_ATENDIMENTO` | INT | Simples | NOT NULL | Nota de atendimento (1 a 5, faixa validada pela aplicação) |
+| `AVHO_NR_CUSTO_BENEFICIO` | INT | Simples | NOT NULL | Nota de custo-benefício (1 a 5, faixa validada pela aplicação) |
 | `AVHO_DS_COMENTARIO` | VARCHAR(255) | Simples | NULL | Comentário opcional do cliente |
-| `AVHO_DT_AVALIACAO` | DATETIME | Simples | NULL, DEFAULT CURRENT_TIMESTAMP | Data e hora da avaliação |
+| `AVHO_DT_AVALIACAO` | DATETIME | Simples | NULL, DEFAULT CURRENT_TIMESTAMP | Data e hora da avaliação, preenchida automaticamente pelo banco |
 | `FK_RESE_ID_RESERVA` | INT | FK / UNIQUE | NOT NULL | Reserva avaliada (RESERVA) |
 
 ### AVALIACAO_CLIENTE
@@ -1208,13 +1208,13 @@ Avaliação do cliente feita pelo proprietário. Cada reserva recebe no máximo 
 | CAMPO | TIPO SQL | TIPO | OPÇÕES | DESCRIÇÃO |
 |:---|:---|:---|:---|:---|
 | `AVCL_ID_AVALIACAO` | INT | PK | NOT NULL, AUTO_INCREMENT | Identificador da avaliação |
-| `AVCL_NR_GERAL` | INT | Simples | NOT NULL | Nota geral do cliente (1 a 5) |
-| `AVCL_NR_COMUNICACAO` | INT | Simples | NOT NULL | Nota de comunicação (1 a 5) |
-| `AVCL_NR_PONTUALIDADE` | INT | Simples | NOT NULL | Nota de pontualidade no check-in e no check-out (1 a 5) |
-| `AVCL_NR_RESPEITO_REGRA` | INT | Simples | NOT NULL | Nota de respeito às regras da hospedagem (1 a 5) |
-| `AVCL_NR_CUIDADO_IMOVEL` | INT | Simples | NOT NULL | Nota de cuidado com o imóvel (1 a 5) |
+| `AVCL_NR_GERAL` | INT | Simples | NOT NULL | Nota geral do cliente (1 a 5, faixa validada pela aplicação) |
+| `AVCL_NR_COMUNICACAO` | INT | Simples | NOT NULL | Nota de comunicação (1 a 5, faixa validada pela aplicação) |
+| `AVCL_NR_PONTUALIDADE` | INT | Simples | NOT NULL | Nota de pontualidade no check-in e no check-out (1 a 5, faixa validada pela aplicação) |
+| `AVCL_NR_RESPEITO_REGRA` | INT | Simples | NOT NULL | Nota de respeito às regras da hospedagem (1 a 5, faixa validada pela aplicação) |
+| `AVCL_NR_CUIDADO_IMOVEL` | INT | Simples | NOT NULL | Nota de cuidado com o imóvel (1 a 5, faixa validada pela aplicação) |
 | `AVCL_DS_COMENTARIO` | VARCHAR(255) | Simples | NULL | Comentário opcional do proprietário |
-| `AVCL_DT_AVALIACAO` | DATETIME | Simples | NULL, DEFAULT CURRENT_TIMESTAMP | Data e hora da avaliação |
+| `AVCL_DT_AVALIACAO` | DATETIME | Simples | NULL, DEFAULT CURRENT_TIMESTAMP | Data e hora da avaliação, preenchida automaticamente pelo banco |
 | `FK_RESE_ID_RESERVA` | INT | FK / UNIQUE | NOT NULL | Reserva avaliada (RESERVA) |
 
 
